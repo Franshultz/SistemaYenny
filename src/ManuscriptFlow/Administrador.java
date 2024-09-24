@@ -41,6 +41,53 @@ public class Administrador extends Usuario implements RegistrarAccion{
 		this.registroAcciones = registroAcciones;
 	}
 
+	public void AdministrarLibros(Libro libro) {
+        String[] CRUD = {"Agregar", "Modificar", "Eliminar", "Salir"};
+        int seleccionCRUD = JOptionPane.showOptionDialog(null, "Seleccione una opción", "Administrar Libros",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, CRUD, CRUD[0]);
+
+        switch (seleccionCRUD) {
+            case 0: 
+                String nuevoTitulo = JOptionPane.showInputDialog("Ingresar título del libro:");
+                if (nuevoTitulo != null && !nuevoTitulo.trim().isEmpty()) {
+                    libro.setTitulo(nuevoTitulo);
+                    JOptionPane.showMessageDialog(null, "Libro agregado exitosamente: " + libro.getTitulo());
+                }
+                break;
+
+            case 1: 
+                String tituloActual = JOptionPane.showInputDialog("Ingresar título del libro a modificar:");
+                if (tituloActual != null && tituloActual.equals(libro.getTitulo())) {
+                    String nuevoTituloModificado = JOptionPane.showInputDialog("Ingresar nuevo título:");
+                    if (nuevoTituloModificado != null && !nuevoTituloModificado.trim().isEmpty()) {
+                    	JOptionPane.showMessageDialog(null, "Título del libro " + libro.getTitulo() + "modificado a " + nuevoTituloModificado);
+                        libro.setTitulo(nuevoTituloModificado);
+                        
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró un libro con ese título.");
+                }
+                break;
+
+            case 2: 
+                String tituloEliminar = JOptionPane.showInputDialog("Ingrese el título del libro a eliminar:");
+                if (tituloEliminar != null && tituloEliminar.equals(libro.getTitulo())) {
+                    // NECESITAMOS UNA LISTA DE LIBROS PARA PODER ELIMINARLOS
+                    // listaLibros.remove("LIBRO X");
+                    JOptionPane.showMessageDialog(null, "Libro eliminado exitosamente.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontró un libro con ese título.");
+                }
+                break;
+
+            case 3: 
+                break;
+
+            default:
+                JOptionPane.showMessageDialog(null, "ERROR");
+                break;
+        }
+    }
 	
 	@Override
 	public void RegistrarUsuario() {

@@ -1,6 +1,7 @@
 package ManuscriptFlow;
 
 import java.util.LinkedList;
+import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 
@@ -14,6 +15,8 @@ public class Autor extends Usuario{
 	private double reputacion;
 	private int numeroVentasTotales;
 	private double regaliasTotales;
+	private String estadoManuscrito;
+    private LocalDate recordatorio;
 	
 	public Autor() {
 		super(null, null, null, null, null, null, null);
@@ -24,7 +27,10 @@ public class Autor extends Usuario{
 		this.reputacion = 0;
 		this.numeroVentasTotales = 0;
 		this.regaliasTotales = 0;
+		this.estadoManuscrito = "No Subido";
+        this.recordatorio = null;
 	}
+	
 
 	public int getAutorID() {
 		return autorID;
@@ -97,6 +103,42 @@ public class Autor extends Usuario{
 				+ ", reputacion=" + reputacion + ", numeroVentasTotales=" + numeroVentasTotales + ", regaliasTotales="
 				+ regaliasTotales + "]";
 	}
+	
+	public boolean SubirEntrega() {
+        if (estadoManuscrito.equals("No Subido")) {
+            estadoManuscrito = "Subido";
+            entregasSubidas++;
+            JOptionPane.showMessageDialog(null, "El manuscrito ha sido subido exitosamente.");
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "El manuscrito ya ha sido subido.");
+            return false;
+        }
+    }
+
+    
+    public boolean EditarManuscrito() {
+        if (estadoManuscrito.equals("Subido")) {
+            estadoManuscrito = "Editado";
+            JOptionPane.showMessageDialog(null, "El manuscrito se ha editado.");
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo editar el manuscrito.");
+            return false;
+        }
+    }
+
+    
+    public void verEstadoManuscrito() {
+        JOptionPane.showMessageDialog(null, "El estado actual del manuscrito es: " + estadoManuscrito);
+    }
+
+   
+    public LocalDate agregarRecordatorio() {
+        recordatorio = LocalDate.now().plusWeeks(1);
+        JOptionPane.showMessageDialog(null, "Se ha agregado un recordatorio para la fecha: " + recordatorio);
+        return recordatorio;
+    }
 
 	@Override
 	public void RegistrarUsuario() {

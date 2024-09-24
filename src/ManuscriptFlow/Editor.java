@@ -154,6 +154,24 @@ public class Editor extends Usuario implements RegistrarAccion{
 		this.getListaUsuarios().add(this);
 	}
 	
+	public void revisarEntrega() {
+        String manuscrito = JOptionPane.showInputDialog("Ingrese el título del manuscrito que desea revisar");
+        //Falta info
+        JOptionPane.showMessageDialog(null, "El manuscrito '" + manuscrito + "' ha sido revisado.");
+        cantidadManuscritosRevisados++;
+        historialRevision.add(manuscrito + " revisado el " + LocalDate.now());
+    }
+
+    // Falta info
+    public String enviarFeedback() {
+        String feedback = JOptionPane.showInputDialog("Ingresar Comentarios");
+        JOptionPane.showMessageDialog(null, "El comentario ha sido enviado.");
+        return feedback;
+    }
+
+    
+
+	
 	@Override
 	public Usuario IniciarSesion() {
 	    String email = JOptionPane.showInputDialog("Ingrese su email");
