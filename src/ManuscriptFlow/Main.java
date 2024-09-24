@@ -1,5 +1,7 @@
 package ManuscriptFlow;
 
+import java.time.LocalDate;
+
 import javax.swing.JOptionPane;
 
 public class Main {
@@ -10,7 +12,7 @@ public class Main {
 		
 		
 		for (int i = 0; i < 3; i++) {			
-			String[] rolesOpciones = {"Administrador", "Autor", "Editor"};
+			String[] rolesOpciones = {"Administrador", "Autor", "Editor", "Iniciar Sesion"};
 			int opcion = JOptionPane.showOptionDialog(null, "Seleccione que tipo de Usuario desea ingresar", null, 0, 0, null, rolesOpciones, rolesOpciones);
 
 			switch (opcion) {
@@ -47,6 +49,8 @@ public class Main {
 		            case 2:
 		            	sesion = new Editor().IniciarSesion();
 		                break;
+		            case 3:
+		            	break;
 		            default:
 		                JOptionPane.showMessageDialog(null, "Debe seleccionar un rol");
 		                break;
@@ -55,26 +59,71 @@ public class Main {
 	            JOptionPane.showMessageDialog(null, "Fin de Sistema :p");
 	     }
 		 
-		 if (sesion != null) {
+		 if (sesion != null) {//ADMIN
 			String rolSesion = sesion.getRol();
-			if (rolSesion.equals("Adminstrador")) {
-				 String[] metodosOpciones = {"Gestionar Usuarios", "Gestionar Libros"};
+			Administrador admin = new Administrador();
+			Autor autor = new Autor();
+			Libro libro = new Libro("BLAME", autor, "1234567890", "Ficción", 19.99, "Físico", "Disponible", LocalDate.now(), 10, null, 0.0);
+			if (rolSesion.equals("Administrador")) {
+				 String[] metodosOpciones = {"Gestionar Libros", "Gestionar Usuarios"};
 				 int opcion = JOptionPane.showOptionDialog(null, "Seleccione que tipo de Usuario desea ingresar", null, 0, 0, null, metodosOpciones, metodosOpciones);
 				 
 				 switch (opcion) {
 		            case 0:
-		                ((Administrador) sesion).GestionarUsuarios(); 
+		                admin.AdministrarLibros(libro);
 		                break;
 		            case 1:
-		                ((Administrador) sesion).GestionarLibros(); 
+		                admin.AdministrarUsuarios();; 
 		                break;
 		            default:
 		                break;
 		        }
 				 
-			} else if (rolSesion == "Autor"){
+			} else if (rolSesion == "Editor"){//AUTOR
+				Editor editor = new Editor();
+				String[] metodosOpcionesEditor = {"Revisar Manuscritos", "Enviar Feedback", "Salir"};
+				int opcionEditor = JOptionPane.showOptionDialog(null, "Seleccione que desea hacer", null, 0, 0, null, metodosOpcionesEditor, metodosOpcionesEditor);
+				
+				switch (opcionEditor) {
+				case 0:
+					editor.revisarEntrega();
+					break;
+                case 1:
+					editor.enviarFeedback();
+					break;
+                case 2:
+	                
+	break;
 
-			} else if (rolSesion == "Editor") {
+				default: JOptionPane.showMessageDialog(null, "Error");
+					break;
+				}
+			} else if (rolSesion == "Autor") {//EDITOR
+				String[] metodosOpcionesAutor = {"Subir Entrega", "Editar Manuscritos", "Ver estado de Manuscritos", "Agregar Recordatorio", "Salir"};
+				int opcionAutor = JOptionPane.showOptionDialog(null, "Seleccione que desea hacer", null, 0, 0, null, metodosOpcionesAutor, metodosOpcionesAutor);
+				
+				switch (opcionAutor) {
+				case 0:
+					autor.SubirEntrega();
+					break;
+				case 1:
+					autor.EditarManuscrito();
+					break;
+				case 2:
+					autor.verEstadoManuscrito();
+					break;
+				case 3:
+					autor.agregarRecordatorio();
+					break;
+				case 4:
+					
+					break;
+					
+
+				default: JOptionPane.showMessageDialog(null, "Error");
+					break;
+				}
+				
 				
 			}
 		} else {

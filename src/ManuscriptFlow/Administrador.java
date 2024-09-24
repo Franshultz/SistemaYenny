@@ -42,10 +42,15 @@ public class Administrador extends Usuario implements RegistrarAccion{
 	}
 
 	public void AdministrarLibros(Libro libro) {
+		
         String[] CRUD = {"Agregar", "Modificar", "Eliminar", "Salir"};
-        int seleccionCRUD = JOptionPane.showOptionDialog(null, "Seleccione una opción", "Administrar Libros",
+        
+			
+		
+        int seleccionCRUD;
+        seleccionCRUD = JOptionPane.showOptionDialog(null, "Seleccione una opción", "Administrar Libros",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, CRUD, CRUD[0]);
-
+        
         switch (seleccionCRUD) {
             case 0: 
                 String nuevoTitulo = JOptionPane.showInputDialog("Ingresar título del libro:");
@@ -87,8 +92,47 @@ public class Administrador extends Usuario implements RegistrarAccion{
                 JOptionPane.showMessageDialog(null, "ERROR");
                 break;
         }
+	}
+	
+	
+	public void AdministrarUsuarios() {
+        String[] opciones = {"Agregar Usuario", "Ver Usuarios", "Editar Usuario", "Eliminar Usuario", "Salir"};
+        int seleccionUsuarios;
+
+        do {
+            seleccionUsuarios = JOptionPane.showOptionDialog(null, 
+                    "Seleccione una opción para administrar usuarios", 
+                    "Administración de Usuarios", 
+                    JOptionPane.DEFAULT_OPTION, 
+                    JOptionPane.INFORMATION_MESSAGE, 
+                    null, 
+                    opciones, 
+                    opciones[0]);
+
+            switch (seleccionUsuarios) {
+                case 0: 
+                    Usuario.getListaUsuarios();
+                    break;
+                case 1: 
+                	Usuario.getListaUsuarios();
+                    break;
+                case 2: 
+                	Usuario.getListaUsuarios();
+                    break;
+                case 3: 
+                	Usuario.getListaUsuarios();
+                    break;
+                case 4: 
+                    JOptionPane.showMessageDialog(null, "Hasta nunca");
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opción no válida");
+                    break;
+            }
+        } while (seleccionUsuarios != 4);
     }
 	
+		
 	@Override
 	public void RegistrarUsuario() {
 		String nombre = JOptionPane.showInputDialog("Ingrese su nombre");
