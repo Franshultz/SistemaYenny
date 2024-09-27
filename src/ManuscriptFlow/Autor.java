@@ -2,6 +2,7 @@ package ManuscriptFlow;
 
 import java.util.LinkedList;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 
@@ -10,6 +11,7 @@ public class Autor extends Usuario{
 	private int autorID;
 	private static int contadorAutores = 0;
 	private LinkedList <Libro> listaLibrosPublicados= new LinkedList<Libro>();
+	private LinkedList <Entrega> listaEntregas= new LinkedList<Entrega>();
 	private int cantidadLibrosPublicados;
 	private int entregasSubidas;
 	private double reputacion;
@@ -22,12 +24,12 @@ public class Autor extends Usuario{
 		super(null, null, null, null, null, null, null);
 		this.autorID = contadorAutores++;
 		this.listaLibrosPublicados = listaLibrosPublicados;
+		this.listaEntregas = listaEntregas;
 		this.cantidadLibrosPublicados = 0;
 		this.entregasSubidas = 0;
 		this.reputacion = 0;
 		this.numeroVentasTotales = 0;
 		this.regaliasTotales = 0;
-		this.estadoManuscrito = "No Subido";
         this.recordatorio = null;
 	}
 	
@@ -55,6 +57,36 @@ public class Autor extends Usuario{
 	public void setListaLibrosPublicados(LinkedList<Libro> listaLibrosPublicados) {
 		this.listaLibrosPublicados = listaLibrosPublicados;
 	}
+	
+	public LinkedList<Entrega> getListaEntregas() {
+		return listaEntregas;
+	}
+
+
+	public void setListaEntregas(LinkedList<Entrega> listaEntregas) {
+		this.listaEntregas = listaEntregas;
+	}
+
+
+	public String getEstadoManuscrito() {
+		return estadoManuscrito;
+	}
+
+
+	public void setEstadoManuscrito(String estadoManuscrito) {
+		this.estadoManuscrito = estadoManuscrito;
+	}
+
+
+	public LocalDate getRecordatorio() {
+		return recordatorio;
+	}
+
+
+	public void setRecordatorio(LocalDate recordatorio) {
+		this.recordatorio = recordatorio;
+	}
+
 
 	public int getCantidadLibrosPublicados() {
 		return cantidadLibrosPublicados;
@@ -104,33 +136,30 @@ public class Autor extends Usuario{
 				+ regaliasTotales + "]";
 	}
 	
-	public boolean SubirEntrega() {
-        if (estadoManuscrito.equals("No Subido")) {
-            estadoManuscrito = "Subido";
-            entregasSubidas++;
-            JOptionPane.showMessageDialog(null, "El manuscrito ha sido subido exitosamente.");
-            return true;
-        } else {
-            JOptionPane.showMessageDialog(null, "El manuscrito ya ha sido subido.");
-            return false;
-        }
-    }
-
-    
-    public boolean EditarManuscrito() {
-        if (estadoManuscrito.equals("Subido")) {
-            estadoManuscrito = "Editado";
-            JOptionPane.showMessageDialog(null, "El manuscrito se ha editado.");
-            return true;
-        } else {
-            JOptionPane.showMessageDialog(null, "No se pudo editar el manuscrito.");
-            return false;
-        }
-    }
-
+	 public void SubirEntrega() {
+		if (this.getListaEntregas().getLast().getEstado().equals("En revision")) {
+			 JOptionPane.showMessageDialog(null, "No puede subir una nueva porque su ultima entrega todavia esta en revision");
+		} else {
+			String contenido = JOptionPane.showInputDialog("Ingrese el link del manuscrito:");
+			Entrega nuevaEntrega = new Entrega(contenido);
+			JOptionPane.showMessageDialog(null, "Entrega subida con éxito: " + nuevaEntrega.toString());
+			this.getListaEntregas().add(nuevaEntrega);			 			
+		}
+	 }
+	 
+	 public void SubirRevision() {
+		 if (this.getListaEntregas().getLast().getEstado().equals("Reenviar")) {			 
+			 String contenido = JOptionPane.showInputDialog("Ingrese el link del manuscrito:");
+			 this.getListaEntregas().getLast().setContenido(contenido);
+			 this.getListaEntregas().getLast().setVersionManuscrito(this.getListaEntregas().getLast().getVersionManuscrito() + 0.1);	
+			 this.getListaEntregas().getLast().setFechaEntrega(LocalDate.now());	
+		} else {
+			JOptionPane.showMessageDialog(null, "Solo puede enviar una revision si su ultima entrega lo requiere por el editor");
+		}
+	 }
     
     public void verEstadoManuscrito() {
-        JOptionPane.showMessageDialog(null, "El estado actual del manuscrito es: " + estadoManuscrito);
+        JOptionPane.showMessageDialog(null, "El estado actual del manuscrito es: " + this.getListaEntregas().getLast().getEstado());
     }
 
    

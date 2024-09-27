@@ -8,18 +8,16 @@ public class Libro {
 	private Autor autor;
 	private String isbn;
 	private String genero;
-	private double precio;
+	private double precio;	
 	private String formato;
 	private String estadoLibro;
 	private LocalDate fechaLanzamiento;
 	private int numeroVentas;
 	private int stockDisponible;
 	private Editor editor;
-	private double regalias;
 	
 	public Libro(String titulo, Autor autor, String isbn, String genero, double precio, String formato,
-			String estadoLibro, LocalDate fechaLanzamiento, int stockDisponible, Editor editor,
-			double regalias) {
+			String estadoLibro, LocalDate fechaLanzamiento, int stockDisponible, Editor editor) {
 		this.titulo = titulo;
 		this.autor = autor;
 		this.isbn = isbn;
@@ -31,7 +29,6 @@ public class Libro {
 		this.numeroVentas = 0;
 		this.stockDisponible = stockDisponible;
 		this.editor = editor;
-		this.regalias = regalias;
 	}
 
 	public String getTitulo() {
@@ -122,20 +119,13 @@ public class Libro {
 		this.editor = editor;
 	}
 
-	public double getRegalias() {
-		return regalias;
-	}
-
-	public void setRegalias(double regalias) {
-		this.regalias = regalias;
-	}
 
 	@Override
 	public String toString() {
 		return "Libro [titulo=" + titulo + ", autor=" + autor + ", isbn=" + isbn + ", genero=" + genero + ", precio="
 				+ precio + ", formato=" + formato + ", estadoLibro=" + estadoLibro + ", fechaLanzamiento="
 				+ fechaLanzamiento + ", numeroVentas=" + numeroVentas + ", stockDisponible=" + stockDisponible
-				+ ", editor=" + editor + ", regalias=" + regalias + "]";
+				+ ", editor=" + editor + "]";
 	}
 	
 	
