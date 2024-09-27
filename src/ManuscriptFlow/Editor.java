@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
-public class Editor extends Usuario implements RegistrarAccion{
+public class Editor extends Usuario implements RegistrarAccion, Validaciones{
 
 	private int editorID;
 	private static int contadorEditores = 0;
@@ -18,7 +18,7 @@ public class Editor extends Usuario implements RegistrarAccion{
 	public Editor() {
 		super(null, null, null, null, null, null, null);
 		this.editorID = contadorEditores++;
-		this.especialidad = especialidad;
+		this.especialidad = "";
 		this.manuscritosAsignados = 0;
 		this.cantidadManuscritosRevisados = 0;
 		this.reputacion = 0;
@@ -92,55 +92,40 @@ public class Editor extends Usuario implements RegistrarAccion{
 	@Override
 	public void RegistrarUsuario() {
 		String nombre = JOptionPane.showInputDialog("Ingrese su nombre");
-		while (nombre.isEmpty()) {
-			nombre = JOptionPane.showInputDialog("El nombre no puede estar vacio");		
-		}
+		nombre = ValidacionNombre(nombre);
 		
 		String apellido = JOptionPane.showInputDialog("Ingrese su apellido");
-		while (apellido.isEmpty()) {
-			apellido = JOptionPane.showInputDialog("El apellido no puede estar vacio");		
-		}
+		apellido = ValidacionApellido(apellido);
 				
 		String email = JOptionPane.showInputDialog("Ingrese su email");
-		while (!email.contains("@")) {
-			email = JOptionPane.showInputDialog("Su email debe contener '@' ");
-		}
+		email = ValidacionEmail(email);
 		
-		String password = ""; 
-		boolean validacionPassword = false;
-		do {
-			password = JOptionPane.showInputDialog("Ingrese su contraseña");
-			while (password.isEmpty()) {
-				password = JOptionPane.showInputDialog("La contraseña no puede estar vacia");		
-			}
-			
-			boolean contentUpperCase = false;
-			int contDigit = 0;
-			for (int j = 0; j < password.length(); j++) {
-				if (Character.isUpperCase(password.charAt(j))) {
-					contentUpperCase = true;
-				}	
-				if (Character.isDigit(password.charAt(j))) {
-					contDigit++;
-				}
-			}
-			
-			if (!contentUpperCase && contDigit < 3) {
-				JOptionPane.showMessageDialog(null, "La contraseña debe contener una mayuscula y tres digitos como minimo");
-			} else if (!contentUpperCase) {
-				JOptionPane.showMessageDialog(null, "La contraseña debe contener una mayuscula como minimo");
-			} else if (contDigit < 3) {
-				JOptionPane.showMessageDialog(null, "La contraseña debe contener tres digitos como minimo");
-			} else {
-				validacionPassword = true;
-			}
-			
-		} while (!validacionPassword);
+
+		String password = JOptionPane.showInputDialog("Ingrese su contraseña");
+		password = ValidacionPassword(password);	
 		
 		String estadoCuenta = "Activo";
 		String rol = "Editor";
 		
-		String especialidad = JOptionPane.showInputDialog("Ingrese en que genero se especializa");
+		String[] generosLiterarios = {
+			    "Ficción",
+			    "No ficción",
+			    "Fantasía",
+			    "Ciencia ficción",
+			    "Romance",
+			    "Misterio",
+			    "Terror",
+			    "Aventura",
+			    "Histórico",
+			    "Poesía",
+			    "Biografía",
+			    "Drama",
+			    "Literatura juvenil",
+			    "Thriller",
+			    "Autobiografía"
+			};		
+		
+		String genero = (String) JOptionPane.showInputDialog(null, "Seleccione un genero", "Generos", JOptionPane.QUESTION_MESSAGE, null, generosLiterarios, generosLiterarios[0]);
 		
 		this.setNombre(nombre);
 		this.setApellido(apellido);
@@ -149,9 +134,11 @@ public class Editor extends Usuario implements RegistrarAccion{
 		this.setRol(rol);
 		this.setEstadoCuenta(estadoCuenta);
 		this.setLibreria(this.getLibreria());
-		this.setEspecialidad(especialidad);
+		this.setEspecialidad(genero);
 		
 		this.getListaUsuarios().add(this);
+		
+		historialRevision.add("El Editor" + getNombre() + " " + getApellido() + " se registro el " + LocalDate.now());
 	}
 	
 	

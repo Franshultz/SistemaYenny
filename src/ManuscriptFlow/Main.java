@@ -123,19 +123,19 @@ public class Main {
                         switch (opcionAutor) {
                             case 0:
                             	JOptionPane.showMessageDialog(null, "Seleccionar Manuscrito");
-                                //autor.SubirEntrega();
+                                autor.SubirEntrega();
                                 break;
                             case 1:
                             	JOptionPane.showMessageDialog(null, "Seleccionar manuscrito para editar");
-                                //autor.SubirEntrega();
+                                autor.SubirRevision();
                                 break;
                             case 2:
                             	JOptionPane.showMessageDialog(null, "Mis manuscritos");
-                                //autor.verEstadoManuscrito();
+                                autor.verEstadoManuscrito();
                                 break;
                             case 3:
                             	JOptionPane.showMessageDialog(null, "Recordatorio");
-                                //autor.agregarRecordatorio();
+                                autor.agregarRecordatorio();
                                 break;
                             case 4:
                                 cerrarSesion = true; 

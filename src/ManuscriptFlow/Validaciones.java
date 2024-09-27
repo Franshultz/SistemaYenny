@@ -215,48 +215,55 @@ public interface Validaciones {
 		return email;
 	}
 	
+	
 	default String ValidacionPassword(String password) {
-		
-		boolean validacionPassword = false;
-		do {			
-			while (password.isEmpty()) {
-				password = JOptionPane.showInputDialog("El email no puede estar vacio. \n Ingrese un email");			
-			}
-			
-			boolean contentUpperCase = false;
-			int contDigit = 0;
-			for (int j = 0; j < password.length(); j++) {
-				if (Character.isUpperCase(password.charAt(j))) {
-					contentUpperCase = true;
-				}	
-				if (Character.isDigit(password.charAt(j))) {
-					contDigit++;
-				}
-			}
-			
-			if (!contentUpperCase && contDigit < 3) {
-				JOptionPane.showMessageDialog(null, "La contraseña debe contener una mayuscula y tres digitos como minimo");
-			} else if (!contentUpperCase) {
-				JOptionPane.showMessageDialog(null, "La contraseña debe contener una mayuscula como minimo");
-			} else if (contDigit < 3) {
-				JOptionPane.showMessageDialog(null, "La contraseña debe contener tres digitos como minimo");
-			} else {
-				validacionPassword = true;
-			}
-			
-		} while (!validacionPassword);
-		
-		return password;
+	    boolean validacionPassword = false;
+
+	    do {			
+	        while (password == null || password.isEmpty()) {
+	            password = JOptionPane.showInputDialog("La contraseña no puede estar vacía. \nIngrese una contraseña");
+	        }
+
+	        boolean contentUpperCase = false;
+	        int contDigit = 0;
+
+	        for (int j = 0; j < password.length(); j++) {
+	            if (Character.isUpperCase(password.charAt(j))) {
+	                contentUpperCase = true;
+	            }
+	            if (Character.isDigit(password.charAt(j))) {
+	                contDigit++;
+	            }
+	        }
+
+	        if (!contentUpperCase && contDigit < 3) {
+	            JOptionPane.showMessageDialog(null, "La contraseña debe contener al menos una mayúscula y tres dígitos.");
+	        } else if (!contentUpperCase) {
+	            JOptionPane.showMessageDialog(null, "La contraseña debe contener al menos una mayúscula.");
+	        } else if (contDigit < 3) {
+	            JOptionPane.showMessageDialog(null, "La contraseña debe contener al menos tres dígitos.");
+	        } else {
+	            validacionPassword = true;
+	        }
+
+	        if (!validacionPassword) {
+	            password = JOptionPane.showInputDialog("La contraseña no es válida. \nIngrese una nueva contraseña");
+	        }
+
+	    } while (!validacionPassword);
+	    
+	    return password;
 	}
 	
-	public static boolean ValidarDigito(String numero) {
-		for (int i = 0; i < numero.length(); i++) {
-			if (Character.isLetter(numero.charAt(i))) {
-				JOptionPane.showMessageDialog(null, "Debe ingresar un numero");
+	public static boolean ValidarDigito(String digito) {
+		for (int i = 0; i < digito.length(); i++) {
+			if (Character.isLetter(digito.charAt(i))) {
+				JOptionPane.showMessageDialog(null, "Debe contener solo digitos numericos");
 				return false;
 			}
 		}
 		return true;
 	}
+
 	
 }

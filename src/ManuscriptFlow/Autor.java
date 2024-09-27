@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 
-public class Autor extends Usuario{
+public class Autor extends Usuario implements Validaciones{
 
 	private int autorID;
 	private static int contadorAutores = 0;
@@ -136,16 +136,16 @@ public class Autor extends Usuario{
 				+ regaliasTotales + "]";
 	}
 	
-	 public void SubirEntrega() {
-		if (this.getListaEntregas().getLast().getEstado().equals("En revision")) {
-			 JOptionPane.showMessageDialog(null, "No puede subir una nueva porque su ultima entrega todavia esta en revision");
-		} else {
-			String contenido = JOptionPane.showInputDialog("Ingrese el link del manuscrito:");
-			Entrega nuevaEntrega = new Entrega(contenido);
-			JOptionPane.showMessageDialog(null, "Entrega subida con éxito: " + nuevaEntrega.toString());
-			this.getListaEntregas().add(nuevaEntrega);			 			
-		}
-	 }
+	public void SubirEntrega() {
+	    if (this.getListaEntregas().isEmpty() || !this.getListaEntregas().getLast().getEstado().equals("En revision")) {
+	        String contenido = JOptionPane.showInputDialog("Ingrese el link del manuscrito:");
+	        Entrega nuevaEntrega = new Entrega(contenido);
+	        JOptionPane.showMessageDialog(null, "Entrega subida con éxito: " + nuevaEntrega.toString());
+	        this.getListaEntregas().add(nuevaEntrega);			 			
+	    } else {
+	        JOptionPane.showMessageDialog(null, "No puede subir una nueva entrega porque su última está en revisión.");
+	    }
+	}
 	 
 	 public void SubirRevision() {
 		 if (this.getListaEntregas().getLast().getEstado().equals("Reenviar")) {			 
@@ -172,50 +172,18 @@ public class Autor extends Usuario{
 	@Override
 	public void RegistrarUsuario() {
 		String nombre = JOptionPane.showInputDialog("Ingrese su nombre");
-		while (nombre.isEmpty()) {
-			nombre = JOptionPane.showInputDialog("El nombre no puede estar vacio");		
-		}
+		nombre = ValidacionNombre(nombre);
 		
 		String apellido = JOptionPane.showInputDialog("Ingrese su apellido");
-		while (apellido.isEmpty()) {
-			apellido = JOptionPane.showInputDialog("El apellido no puede estar vacio");		
-		}
+		apellido = ValidacionApellido(apellido);
 				
 		String email = JOptionPane.showInputDialog("Ingrese su email");
-		while (!email.contains("@")) {
-			email = JOptionPane.showInputDialog("Su email debe contener '@' ");
-		}
+		email = ValidacionEmail(email);
 		
-		String password = ""; 
-		boolean validacionPassword = false;
-		do {
-			password = JOptionPane.showInputDialog("Ingrese su contraseña");
-			while (password.isEmpty()) {
-				password = JOptionPane.showInputDialog("La contraseña no puede estar vacia");		
-			}
-			
-			boolean contentUpperCase = false;
-			int contDigit = 0;
-			for (int j = 0; j < password.length(); j++) {
-				if (Character.isUpperCase(password.charAt(j))) {
-					contentUpperCase = true;
-				}	
-				if (Character.isDigit(password.charAt(j))) {
-					contDigit++;
-				}
-			}
-			
-			if (!contentUpperCase && contDigit < 3) {
-				JOptionPane.showMessageDialog(null, "La contraseña debe contener una mayuscula y tres digitos como minimo");
-			} else if (!contentUpperCase) {
-				JOptionPane.showMessageDialog(null, "La contraseña debe contener una mayuscula como minimo");
-			} else if (contDigit < 3) {
-				JOptionPane.showMessageDialog(null, "La contraseña debe contener tres digitos como minimo");
-			} else {
-				validacionPassword = true;
-			}
-			
-		} while (!validacionPassword);
+
+		String password = JOptionPane.showInputDialog("Ingrese su contraseña");
+		password = ValidacionPassword(password);
+		
 		
 		String estadoCuenta = "Activo";
 		String rol = "Autor";
