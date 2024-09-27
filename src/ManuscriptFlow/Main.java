@@ -14,7 +14,7 @@ public class Main {
 
         for (int i = 0; i < 3; i++) {			
 			String[] rolesOpciones = {"Administrador", "Autor", "Editor", "Iniciar Sesion"};
-			int opcion = JOptionPane.showOptionDialog(null, "Seleccione que tipo de Usuario desea ingresar", null, 0, 0, null, rolesOpciones, rolesOpciones);
+			int opcion = JOptionPane.showOptionDialog(null, "Seleccione que tipo de Usuario desea registrar", null, 0, 0, null, rolesOpciones, rolesOpciones);
 
 			switch (opcion) {
 			case 0:
@@ -29,8 +29,12 @@ public class Main {
 				editor = new Editor();
 				editor.RegistrarUsuario();
 				break;
+				
+			case 3:
+				break;
 
 			default:
+				JOptionPane.showMessageDialog(null, "Sacá la mano de ahi carajo");
 				break;
 			}
 		}			
@@ -96,9 +100,11 @@ public class Main {
 
                         switch (opcionEditor) {
                             case 0:
+                            	JOptionPane.showMessageDialog(null, "Revisar entrega");
                                 editor.revisarEntrega();
                                 break;
                             case 1:
+                            	JOptionPane.showMessageDialog(null, "Enviar Feedback");
                                 editor.enviarFeedback();
                                 break;
                             case 2:
@@ -116,16 +122,20 @@ public class Main {
 
                         switch (opcionAutor) {
                             case 0:
-                                autor.SubirEntrega();
+                            	JOptionPane.showMessageDialog(null, "Seleccionar Manuscrito");
+                                //autor.SubirEntrega();
                                 break;
                             case 1:
-                                autor.SubirEntrega();
+                            	JOptionPane.showMessageDialog(null, "Seleccionar manuscrito para editar");
+                                //autor.SubirEntrega();
                                 break;
                             case 2:
-                                autor.verEstadoManuscrito();
+                            	JOptionPane.showMessageDialog(null, "Mis manuscritos");
+                                //autor.verEstadoManuscrito();
                                 break;
                             case 3:
-                                autor.agregarRecordatorio();
+                            	JOptionPane.showMessageDialog(null, "Recordatorio");
+                                //autor.agregarRecordatorio();
                                 break;
                             case 4:
                                 cerrarSesion = true; 

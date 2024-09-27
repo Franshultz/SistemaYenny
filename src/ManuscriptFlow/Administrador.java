@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
+
 public class Administrador extends Usuario implements RegistrarAccion, Validaciones{
 
 	private static int contadorAdmins = 0;
@@ -126,15 +127,39 @@ public class Administrador extends Usuario implements RegistrarAccion, Validacio
 			
 			switch (seleccionUsuarios) {
 			case 0: 
-				Usuario.getListaUsuarios();
+				String[] rolesOpciones = {"Administrador", "Autor", "Editor",};
+				int opcion = JOptionPane.showOptionDialog(null, "Seleccione el rol del Usuario que desea registrar", null, 0, 0, null, rolesOpciones, rolesOpciones);
+
+				switch (opcion) {
+				case 0:
+					RegistrarUsuario();
+					JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
+					break;
+				case 1:
+					RegistrarUsuario();
+					JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
+					break;
+				case 2:
+					RegistrarUsuario();
+					JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
+					break;
+
+				default:
+					JOptionPane.showMessageDialog(null, "Sacá la mano de ahi carajo");
+					break;
+				};
 				break;
-			case 1: 
+			case 1:
+				
+				JOptionPane.showMessageDialog(null, "Lista de Usuarios");
 				Usuario.getListaUsuarios();
 				break;
 			case 2: 
+				JOptionPane.showMessageDialog(null, "Editar Usuario");
 				Usuario.getListaUsuarios();
 				break;
 			case 3: 
+				JOptionPane.showMessageDialog(null, "Eliminar Usuario");
 				Usuario.getListaUsuarios();
 				break;
 			case 4: 
@@ -162,9 +187,9 @@ public class Administrador extends Usuario implements RegistrarAccion, Validacio
 	                break;
 	
 	            case 1: 
-	                
+	                JOptionPane.showMessageDialog(null, "Modificar Libro");
 	            case 2: 
-	                
+	                JOptionPane.showMessageDialog(null, "Eliminar Libro");
 	            case 3: 
 	                break;
 	
