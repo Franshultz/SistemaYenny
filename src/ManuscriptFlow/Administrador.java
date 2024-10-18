@@ -182,10 +182,8 @@ public class Administrador extends Usuario implements RegistrarAccion, Validacio
 	        
 	        switch (seleccionCRUD) {
 	            case 0: 
-	                Libro libro = ValidacionLibro();
-	                
+	                Libro libro = ValidacionLibro();	                
 	                break;
-	
 	            case 1: 
 	                JOptionPane.showMessageDialog(null, "Modificar Libro");
 	            case 2: 
