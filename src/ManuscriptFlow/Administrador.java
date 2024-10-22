@@ -8,31 +8,13 @@ import javax.swing.JOptionPane;
 
 public class Administrador extends Usuario implements RegistrarAccion, Validaciones{
 
-	private static int contadorAdmins = 0;
-	private int adminID; 
-	private LinkedList<String> registroAcciones = new LinkedList<String>();
+	    private LinkedList<String> registroAcciones;
 	
-	public Administrador() {
-        super(null, null, null, null, null, null, null); 
-        this.adminID = ++contadorAdmins;   
-        this.registroAcciones = registroAcciones;
-    }
+	    public Administrador(int id, String nombre, String apellido, String mail, String password, String rol, String estadoCuenta) {
+	        super(id, nombre, apellido, mail, password, rol, estadoCuenta);
+	        this.registroAcciones = new LinkedList<>();
+	    }
 
-	public static int getContadorAdmins() {
-		return contadorAdmins;
-	}
-
-	public static void setContadorAdmins(int contadorAdmins) {
-		Administrador.contadorAdmins = contadorAdmins;
-	}
-
-	public int getAdminID() {
-		return adminID;
-	}
-
-	public void setAdminID(int adminID) {
-		this.adminID = adminID;
-	}
 
 	public LinkedList<String> getRegistroAcciones() {
 		return registroAcciones;
@@ -41,61 +23,14 @@ public class Administrador extends Usuario implements RegistrarAccion, Validacio
 	public void setRegistroAcciones(LinkedList<String> registroAcciones) {
 		this.registroAcciones = registroAcciones;
 	}
-	
+
 	
 	@Override
-	public void RegistrarUsuario() {
-		String nombre = JOptionPane.showInputDialog("Ingrese su nombre");
-		nombre = ValidacionNombre(nombre);
-		
-		String apellido = JOptionPane.showInputDialog("Ingrese su apellido");
-		apellido = ValidacionApellido(apellido);
-				
-		String email = JOptionPane.showInputDialog("Ingrese su email");
-		email = ValidacionEmail(email);
-		
-
-		String password = JOptionPane.showInputDialog("Ingrese su contraseña");
-		password = ValidacionPassword(password);	
-		
-		String estadoCuenta = "Activo";
-		String rol = "Administrador";
-		
-		this.setNombre(nombre);
-		this.setApellido(apellido);
-		this.setEmail(email);
-		this.setContraseña(password);
-		this.setRol(rol);
-		this.setEstadoCuenta(estadoCuenta);
-		this.setLibreria(this.getLibreria());
-				
-		this.getListaUsuarios().add(this);
-		
-		this.RegistrarAccion("Sign Up");
-		
+	public String toString() {
+		return "Administrador [registroAcciones=" + registroAcciones + "]";
 	}
-	
 
-	@Override
-	public Usuario IniciarSesion() {
-	    String email = JOptionPane.showInputDialog("Ingrese su email");
-		email = ValidacionEmail(email);
-		
-	    String password = JOptionPane.showInputDialog("Ingrese su contraseña");
 
-	    for (Usuario usuario : Usuario.getListaUsuarios()) {
-  
-	        if (usuario.getEmail().equals(email) && usuario.getContraseña().equals(password) && usuario instanceof Administrador) {
-	            JOptionPane.showMessageDialog(null, "Bienvenido " + usuario.getNombre() + " (" + usuario.getRol() + ")");
-	            return usuario;
-	        }
-	    }
-
-	    JOptionPane.showMessageDialog(null, "No se ha encontrado el usuario o la contraseña es incorrecta");
-	    return null; 
-	}
-	
-	
 	@Override
 	public void RegistrarAccion(String accion) {
 		switch (accion) {
@@ -109,67 +44,6 @@ public class Administrador extends Usuario implements RegistrarAccion, Validacio
 		default:
 			break;
 		}		
-	}
-
-	public void AdministrarUsuarios() {
-		String[] opciones = {"Agregar Usuario", "Ver Usuarios", "Editar Usuario", "Eliminar Usuario", "Salir"};
-		int seleccionUsuarios;
-		
-		do {
-			seleccionUsuarios = JOptionPane.showOptionDialog(null, 
-					"Seleccione una opción para administrar usuarios", 
-					"Administración de Usuarios", 
-					JOptionPane.DEFAULT_OPTION, 
-					JOptionPane.INFORMATION_MESSAGE, 
-					null, 
-					opciones, 
-					opciones[0]);
-			
-			switch (seleccionUsuarios) {
-			case 0: 
-				String[] rolesOpciones = {"Administrador", "Autor", "Editor",};
-				int opcion = JOptionPane.showOptionDialog(null, "Seleccione el rol del Usuario que desea registrar", null, 0, 0, null, rolesOpciones, rolesOpciones);
-
-				switch (opcion) {
-				case 0:
-					RegistrarUsuario();
-					JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
-					break;
-				case 1:
-					RegistrarUsuario();
-					JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
-					break;
-				case 2:
-					RegistrarUsuario();
-					JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
-					break;
-
-				default:
-					JOptionPane.showMessageDialog(null, "Sacá la mano de ahi carajo");
-					break;
-				};
-				break;
-			case 1:
-				
-				JOptionPane.showMessageDialog(null, "Lista de Usuarios");
-				Usuario.getListaUsuarios();
-				break;
-			case 2: 
-				JOptionPane.showMessageDialog(null, "Editar Usuario");
-				Usuario.getListaUsuarios();
-				break;
-			case 3: 
-				JOptionPane.showMessageDialog(null, "Eliminar Usuario");
-				Usuario.getListaUsuarios();
-				break;
-			case 4: 
-				JOptionPane.showMessageDialog(null, "Hasta nunca");
-				break;
-			default:
-				JOptionPane.showMessageDialog(null, "Opción no válida");
-				break;
-			}
-		} while (seleccionUsuarios != 4);
 	}
 	
 	

@@ -8,10 +8,8 @@ import javax.swing.JOptionPane;
 
 public class Autor extends Usuario implements Validaciones{
 
-	private int autorID;
-	private static int contadorAutores = 0;
-	private LinkedList <Libro> listaLibrosPublicados= new LinkedList<Libro>();
-	private LinkedList <Entrega> listaEntregas= new LinkedList<Entrega>();
+	private LinkedList <Libro> listaLibrosPublicados;
+	private LinkedList <Entrega> listaEntregas;
 	private int cantidadLibrosPublicados;
 	private int entregasSubidas;
 	private double reputacion;
@@ -20,35 +18,32 @@ public class Autor extends Usuario implements Validaciones{
 	private String estadoManuscrito;
     private LocalDate recordatorio;
 	
-	public Autor() {
-		super(null, null, null, null, null, null, null);
-		this.autorID = contadorAutores++;
-		this.listaLibrosPublicados = listaLibrosPublicados;
-		this.listaEntregas = listaEntregas;
-		this.cantidadLibrosPublicados = 0;
-		this.entregasSubidas = 0;
-		this.reputacion = 0;
-		this.numeroVentasTotales = 0;
-		this.regaliasTotales = 0;
-        this.recordatorio = null;
-	}
 	
 
-	public int getAutorID() {
-		return autorID;
-	}
+    public Autor(int id, String nombre, String apellido, String email, String contraseña, String rol, String estadoCuenta) {
+        super(id, nombre, apellido, email, contraseña, rol, estadoCuenta);
+        this.listaLibrosPublicados = new LinkedList<Libro>();
+        this.listaEntregas = new LinkedList<Entrega>();
+        this.cantidadLibrosPublicados = 0;
+        this.entregasSubidas = 0;
+        this.reputacion = 0;
+        this.numeroVentasTotales = 0;
+        this.regaliasTotales = 0;
+        this.recordatorio = null;
+    }
+    
+    public Autor(String nombre, String apellido, String email, String contraseña, String estadoCuenta) {
+    	super(nombre, apellido, email, contraseña, estadoCuenta);
+    	this.listaLibrosPublicados = new LinkedList<Libro>();
+    	this.listaEntregas = new LinkedList<Entrega>();
+    	this.cantidadLibrosPublicados = 0;
+    	this.entregasSubidas = 0;
+    	this.reputacion = 0;
+    	this.numeroVentasTotales = 0;
+    	this.regaliasTotales = 0;
+    	this.recordatorio = null;
+    }
 
-	public void setAutorID(int autorID) {
-		this.autorID = autorID;
-	}
-
-	public static int getContadorAutores() {
-		return contadorAutores;
-	}
-
-	public static void setContadorAutores(int contadorAutores) {
-		Autor.contadorAutores = contadorAutores;
-	}
 
 	public LinkedList<Libro> getListaLibrosPublicados() {
 		return listaLibrosPublicados;
@@ -128,14 +123,17 @@ public class Autor extends Usuario implements Validaciones{
 		this.regaliasTotales = regaliasTotales;
 	}
 
+	
+	
 	@Override
 	public String toString() {
-		return "Autor [autorID=" + autorID + ", listaLibrosPublicados=" + listaLibrosPublicados
+		return "Autor [listaLibrosPublicados=" + listaLibrosPublicados + ", listaEntregas=" + listaEntregas
 				+ ", cantidadLibrosPublicados=" + cantidadLibrosPublicados + ", entregasSubidas=" + entregasSubidas
 				+ ", reputacion=" + reputacion + ", numeroVentasTotales=" + numeroVentasTotales + ", regaliasTotales="
-				+ regaliasTotales + "]";
+				+ regaliasTotales + ", estadoManuscrito=" + estadoManuscrito + ", recordatorio=" + recordatorio + "]";
 	}
-	
+
+
 	public void SubirEntrega() {
 	    if (this.getListaEntregas().isEmpty() || !this.getListaEntregas().getLast().getEstado().equals("En revision")) {
 	        String contenido = JOptionPane.showInputDialog("Ingrese el link del manuscrito:");
@@ -168,54 +166,5 @@ public class Autor extends Usuario implements Validaciones{
         JOptionPane.showMessageDialog(null, "Se ha agregado un recordatorio para la fecha: " + recordatorio);
         return recordatorio;
     }
-
-	@Override
-	public void RegistrarUsuario() {
-		String nombre = JOptionPane.showInputDialog("Ingrese su nombre");
-		nombre = ValidacionNombre(nombre);
-		
-		String apellido = JOptionPane.showInputDialog("Ingrese su apellido");
-		apellido = ValidacionApellido(apellido);
-				
-		String email = JOptionPane.showInputDialog("Ingrese su email");
-		email = ValidacionEmail(email);
-		
-
-		String password = JOptionPane.showInputDialog("Ingrese su contraseña");
-		password = ValidacionPassword(password);
-		
-		
-		String estadoCuenta = "Activo";
-		String rol = "Autor";
-		
-		this.setNombre(nombre);
-		this.setApellido(apellido);
-		this.setEmail(email);
-		this.setContraseña(password);
-		this.setRol(rol);
-		this.setEstadoCuenta(estadoCuenta);
-		this.setLibreria(this.getLibreria());
-				
-		this.getListaUsuarios().add(this);
-		
-	}
-	
-	
-	@Override
-	public Usuario IniciarSesion() {
-	    String email = JOptionPane.showInputDialog("Ingrese su email");
-	    String password = JOptionPane.showInputDialog("Ingrese su contraseña");
-
-	    for (Usuario usuario : Usuario.getListaUsuarios()) {
-	        
-	        if (usuario.getEmail().equals(email) && usuario.getContraseña().equals(password) && usuario instanceof Autor) {
-	            JOptionPane.showMessageDialog(null, "Bienvenido " + usuario.getNombre() + " (" + usuario.getRol() + ")");
-	            return usuario;
-	        }
-	    }
-
-	    JOptionPane.showMessageDialog(null, "No se ha encontrado el usuario o la contraseña es incorrecta");
-	    return null; 
-	}
 
 }

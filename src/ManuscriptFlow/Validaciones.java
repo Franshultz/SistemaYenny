@@ -17,7 +17,7 @@ public interface Validaciones {
 		
 		
 		LinkedList<String> listaAutores = new LinkedList<>();
-		for (Usuario usuario : Usuario.getListaUsuarios()) {
+		for (Usuario usuario : ControllerUsuario.MostrarUsuarios()) {
 			if (usuario.getRol().equals("Autor")) {
 				listaAutores.add(usuario.getNombre() + " " + usuario.getApellido());
 			}
@@ -30,7 +30,7 @@ public interface Validaciones {
 		String ApellidoAutor = nombreApellidoAutor[1];
 		
 		Autor autor = null;
-		for (Usuario usuario : Usuario.getListaUsuarios()) {
+		for (Usuario usuario : ControllerUsuario.MostrarUsuarios()) {
 			if (usuario.getNombre().equals(nombreAutor) && usuario.getApellido().equals(ApellidoAutor)) {
 				autor = (Autor) usuario;
 			}
@@ -158,7 +158,7 @@ public interface Validaciones {
 		
 		
 		LinkedList<String> listaEditores = new LinkedList<>();
-		for (Usuario usuario : Usuario.getListaUsuarios()) {
+		for (Usuario usuario : ControllerUsuario.MostrarUsuarios()) {
 			if (usuario.getRol().equals("Editor")) {
 				listaEditores.add(usuario.getNombre() + " " + usuario.getApellido());
 			}
@@ -171,7 +171,7 @@ public interface Validaciones {
 		String ApellidoEditor = nombreApellidoEditor[1];
 		
 		Editor editor = null;
-		for (Usuario usuario : Usuario.getListaUsuarios()) {
+		for (Usuario usuario : ControllerUsuario.MostrarUsuarios()) {
 			if (usuario.getNombre().equals(nombreEditor) && usuario.getApellido().equals(ApellidoEditor)) {
 				editor = (Editor) usuario;
 			}
@@ -184,76 +184,129 @@ public interface Validaciones {
 	
 	
 	
-	default String ValidacionNombre(String nombre) {
-		
-		while (nombre.isEmpty()) {
-			nombre = JOptionPane.showInputDialog("El nombre no puede estar vacio. \n Ingrese un nombre");			
-		}
-		
-		return nombre;
-	}
-	
-	default String ValidacionApellido(String apellido) {
-		
-		while (apellido.isEmpty()) {
-			apellido = JOptionPane.showInputDialog("El apellido no puede estar vacio. \n Ingrese un apelido");			
-		}
-		
-		return apellido;
-	}
-	
-	default String ValidacionEmail(String email) {
-		
-		while (email.isEmpty()) {
-			email = JOptionPane.showInputDialog("El email no puede estar vacio. \n Ingrese un email");			
-		}
-		
-		while (!email.contains("@")) {
-			email = JOptionPane.showInputDialog("Su email debe contener '@' \n Ingrese un email valido");
-		}
-		
-		return email;
-	}
-	
-	
-	default String ValidacionPassword(String password) {
-	    boolean validacionPassword = false;
+	static String ValidacionNombre() {
+		String nombre;
+	    while (true) {
+	        try {
+	            nombre = JOptionPane.showInputDialog("Ingrese un nombre:");
 
-	    do {			
-	        while (password == null || password.isEmpty()) {
-	            password = JOptionPane.showInputDialog("La contraseña no puede estar vacía. \nIngrese una contraseña");
-	        }
-
-	        boolean contentUpperCase = false;
-	        int contDigit = 0;
-
-	        for (int j = 0; j < password.length(); j++) {
-	            if (Character.isUpperCase(password.charAt(j))) {
-	                contentUpperCase = true;
+	            if (nombre == null) {
+	                throw new IllegalArgumentException("\nDebes agregar un nombre.");
+	            } else if (nombre.isEmpty()) {
+	                throw new IllegalArgumentException("\nEl nombre no puede estar vacío.");
 	            }
-	            if (Character.isDigit(password.charAt(j))) {
-	                contDigit++;
+
+	            break;
+
+	        } catch (IllegalArgumentException e) {
+	            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+	        } catch (Exception e) {
+	            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado");
+	        }
+	    }
+
+	    return nombre;
+	}
+	
+	
+	static String ValidacionApellido() {
+	    String apellido;
+	    while (true) {
+	        try {
+	            apellido = JOptionPane.showInputDialog("Ingrese un apellido:");
+
+	            if (apellido == null) {
+	                throw new IllegalArgumentException("\nDebes agregar un apellido.");
+	            } else if (apellido.isEmpty()) {
+	                throw new IllegalArgumentException("\nEl apellido no puede estar vacío.");
 	            }
-	        }
 
-	        if (!contentUpperCase && contDigit < 3) {
-	            JOptionPane.showMessageDialog(null, "La contraseña debe contener al menos una mayúscula y tres dígitos.");
-	        } else if (!contentUpperCase) {
-	            JOptionPane.showMessageDialog(null, "La contraseña debe contener al menos una mayúscula.");
-	        } else if (contDigit < 3) {
-	            JOptionPane.showMessageDialog(null, "La contraseña debe contener al menos tres dígitos.");
-	        } else {
-	            validacionPassword = true;
-	        }
+	            break;
 
-	        if (!validacionPassword) {
-	            password = JOptionPane.showInputDialog("La contraseña no es válida. \nIngrese una nueva contraseña");
+	        } catch (IllegalArgumentException e) {
+	            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+	        } catch (Exception e) {
+	            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado");
 	        }
+	    }
 
-	    } while (!validacionPassword);
-	    
+	    return apellido;
+	}
+	
+	
+	static String ValidacionEmail() {
+	    String email;
+	    while (true) {
+	        try {
+	            email = JOptionPane.showInputDialog("Ingrese un email:");
+
+	            if (email == null) {
+	                throw new IllegalArgumentException("\nDebes agregar un email.");
+	            } else if (email.isEmpty()) {
+	                throw new IllegalArgumentException("\nEl email no puede estar vacío.");
+	            } else if (!email.contains("@")) {
+	                throw new IllegalArgumentException("\nEl email debe contener '@'.");
+	            } else if (!email.contains(".")) {
+	                throw new IllegalArgumentException("\nEl email debe contener un dominio (ej. ejemplo.com).");
+	            }
+
+	            break;
+
+	        } catch (IllegalArgumentException e) {
+	            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+	        } catch (Exception e) {
+	            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado");
+	        }
+	    }
+
+	    return email;
+	}
+	
+	
+	static String ValidacionPassword() {
+	    String password;
+	    while (true) {
+	        try {
+	            password = JOptionPane.showInputDialog("Ingrese una contraseña:");
+
+	            if (password == null) {
+	                throw new IllegalArgumentException("Debes agregar una contraseña.");
+	            } else if (password.isEmpty()) {
+	                throw new IllegalArgumentException("La contraseña no puede estar vacía.");
+	            }
+
+	            boolean contentUpperCase = false;
+	            int contDigit = 0;
+
+	            for (int j = 0; j < password.length(); j++) {
+	                if (Character.isUpperCase(password.charAt(j))) {
+	                    contentUpperCase = true;
+	                }
+	                if (Character.isDigit(password.charAt(j))) {
+	                    contDigit++;
+	                }
+	            }
+
+	            if (!contentUpperCase && contDigit < 3) {
+	                throw new IllegalArgumentException("La contraseña debe contener al menos una mayúscula y tres dígitos.");
+	            } else if (!contentUpperCase) {
+	                throw new IllegalArgumentException("La contraseña debe contener al menos una mayúscula.");
+	            } else if (contDigit < 3) {
+	                throw new IllegalArgumentException("La contraseña debe contener al menos tres dígitos.");
+	            }
+
+	            break; 
+
+	        } catch (IllegalArgumentException e) {
+	            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+	        } catch (Exception e) {
+	            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado");
+	        }
+	    }
+
 	    return password;
 	}
+	
 	
 	public static boolean ValidarDigito(String digito) {
 		for (int i = 0; i < digito.length(); i++) {
