@@ -1,17 +1,17 @@
-	package ManuscriptFlow;
+	package BLL;
 	
-	import java.util.LinkedList;
+	import java.util.LinkedList; 
 
 import javax.swing.JOptionPane;
 
 import com.mysql.jdbc.Connection;
-	import ManuscriptFlow.Conexion;
-	import ManuscriptFlow.ControllerUsuario;
-	import ManuscriptFlow.Usuario;
+
+import BLL.Usuario;
+import DLL.Conexion;
+import DLL.ControllerUsuario;
+import DLL.Validaciones;
 	
-	/**
-	 * 
-	 */
+	
 	public abstract class Usuario implements Validaciones{
 		private static Connection connect = Conexion.getInstance().getConection();
 	
@@ -151,7 +151,6 @@ import com.mysql.jdbc.Connection;
 		    } while (flag); 
 
 		    String contraseñaRegistro = Validaciones.ValidacionPassword();
-
 		    ControllerUsuario.AgregarUsuario(new Autor(nombre, apellido, emailRegistro, contraseñaRegistro, "activo"));
 		}
 
@@ -166,8 +165,6 @@ import com.mysql.jdbc.Connection;
 					return persona;
 				} 
 			}
-			
-			JOptionPane.showMessageDialog(null, "Mail y/o Contraseña no encontrados, verifique su contraseña o mail");
 			return null;		
 		}
 	

@@ -1,9 +1,12 @@
-package ManuscriptFlow;
+package BLL;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
+
+import DLL.RegistrarAccion;
+import DLL.Validaciones;
 
 public class Editor extends Usuario implements RegistrarAccion, Validaciones{
 
@@ -17,7 +20,7 @@ public class Editor extends Usuario implements RegistrarAccion, Validaciones{
 	    this.manuscritosAsignados = 0;
 	    this.cantidadManuscritosRevisados = 0;
 	    this.reputacion = 0;
-	    this.historialRevision = new LinkedList<String>();;
+	    this.historialRevision = new LinkedList<String>();
 	}
 
 	public int getManuscritosAsignados() {

@@ -1,10 +1,13 @@
-package ManuscriptFlow;
+package BLL;
 
 import java.util.LinkedList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
+
+import DLL.ControllerEntrega;
+import DLL.Validaciones;
 
 public class Autor extends Usuario implements Validaciones{
 
@@ -134,26 +137,14 @@ public class Autor extends Usuario implements Validaciones{
 	}
 
 
-	public void SubirEntrega() {
-	    if (this.getListaEntregas().isEmpty() || !this.getListaEntregas().getLast().getEstado().equals("En revision")) {
-	        String contenido = JOptionPane.showInputDialog("Ingrese el link del manuscrito:");
-	        Entrega nuevaEntrega = new Entrega(contenido);
-	        JOptionPane.showMessageDialog(null, "Entrega subida con éxito: " + nuevaEntrega.toString());
-	        this.getListaEntregas().add(nuevaEntrega);			 			
-	    } else {
-	        JOptionPane.showMessageDialog(null, "No puede subir una nueva entrega porque su última está en revisión.");
-	    }
+	public boolean SubirEntrega() {
+		String contenido = JOptionPane.showInputDialog("Ingrese el link de su entrega");
+		Entrega entrega = new Entrega(this.getId(), contenido);		
+	    return ControllerEntrega.AgregarEntrega(entrega);
 	}
 	 
 	 public void SubirRevision() {
-		 if (this.getListaEntregas().getLast().getEstado().equals("Reenviar")) {			 
-			 String contenido = JOptionPane.showInputDialog("Ingrese el link del manuscrito:");
-			 this.getListaEntregas().getLast().setContenido(contenido);
-			 this.getListaEntregas().getLast().setVersionManuscrito(this.getListaEntregas().getLast().getVersionManuscrito() + 0.1);	
-			 this.getListaEntregas().getLast().setFechaEntrega(LocalDate.now());	
-		} else {
-			JOptionPane.showMessageDialog(null, "Solo puede enviar una revision si su ultima entrega lo requiere por el editor");
-		}
+		
 	 }
     
     public void verEstadoManuscrito() {
@@ -166,5 +157,6 @@ public class Autor extends Usuario implements Validaciones{
         JOptionPane.showMessageDialog(null, "Se ha agregado un recordatorio para la fecha: " + recordatorio);
         return recordatorio;
     }
+    
 
 }

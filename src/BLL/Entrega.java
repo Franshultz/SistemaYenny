@@ -1,43 +1,51 @@
-package ManuscriptFlow;
+package BLL;
 
 import java.time.LocalDate;
 
 public class Entrega {
 
-    private int entregaID;
-    private static int contadorEntregas = 0;
+    private int id;
+    private int autor;
     private double versionManuscrito;
     private String contenido;
     private String estado;
     private String feedback;
     private LocalDate fechaEntrega;
 
-    public Entrega(String contenido) {
-        this.entregaID = ++contadorEntregas;
-        this.versionManuscrito = 1;
+    public Entrega(int id, double versionManuscrito, String contenido, String estado, String feedback, LocalDate fechaEntrega, String autor) {
+    	this.id = id;
+    	this.versionManuscrito = versionManuscrito;
+    	this.contenido = contenido;
+    	this.estado = estado;
+    	this.feedback = feedback;
+    	this.fechaEntrega = fechaEntrega;
+    }
+    
+    public Entrega(int autor, String contenido) {
+    	this.autor = autor;
+        this.versionManuscrito = 0.0;
         this.contenido = contenido;
         this.estado = "En revision";
         this.feedback = "No hay feedback para esta entrega todavia";
         this.fechaEntrega = LocalDate.now();
-
     }
 
-	public int getEntregaID() {
-		return entregaID;
+    
+    
+	public int getId() {
+		return id;
 	}
 
-	public void setEntregaID(int entregaID) {
-		this.entregaID = entregaID;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	
-	
-	public static int getContadorEntregas() {
-		return contadorEntregas;
+	public int getAutor() {
+		return autor;
 	}
 
-	public static void setContadorEntregas(int contadorEntregas) {
-		Entrega.contadorEntregas = contadorEntregas;
+	public void setAutor(int autor) {
+		this.autor = autor;
 	}
 
 	public double getVersionManuscrito() {
@@ -83,10 +91,8 @@ public class Entrega {
 
 	@Override
 	public String toString() {
-		return "Entrega [entregaID=" + entregaID + ", versionManuscrito=" + versionManuscrito + ", contenido="
-				+ contenido + ", estado=" + estado + ", feedback=" + feedback + ", fechaEntrega=" + fechaEntrega + "]";
+		return "Entrega [id=" + id + ", versionManuscrito=" + versionManuscrito + ", contenido=" + contenido
+				+ ", estado=" + estado + ", feedback=" + feedback + ", fechaEntrega=" + fechaEntrega + "]";
 	}
 
-	
-	
 }

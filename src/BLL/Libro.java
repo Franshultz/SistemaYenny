@@ -1,4 +1,4 @@
-package ManuscriptFlow;
+package BLL;
 
 import java.time.LocalDate;
 
@@ -28,6 +28,14 @@ public class Libro {
 		this.fechaLanzamiento = fechaLanzamiento;
 		this.numeroVentas = 0;
 		this.stockDisponible = stockDisponible;
+		this.editor = editor;
+	}
+	
+	public Libro(String titulo, Autor autor, String genero, Editor editor) {
+		this.titulo = titulo;
+		this.autor = autor;
+		this.genero = genero;
+		this.estadoLibro = "En proceso";
 		this.editor = editor;
 	}
 

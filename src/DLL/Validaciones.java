@@ -1,10 +1,15 @@
-package ManuscriptFlow;
+package DLL;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
+
+import BLL.Autor;
+import BLL.Editor;
+import BLL.Libro;
+import BLL.Usuario;
 
 public interface Validaciones {
 	

@@ -1,9 +1,12 @@
-package ManuscriptFlow;
+package BLL;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
+
+import DLL.RegistrarAccion;
+import DLL.Validaciones;
 
 
 public class Administrador extends Usuario implements RegistrarAccion, Validaciones{

@@ -1,10 +1,15 @@
-package ManuscriptFlow;
+package DLL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
+
+import BLL.Administrador;
+import BLL.Autor;
+import BLL.Editor;
+import BLL.Usuario;
 
 public class ControllerUsuario {
 	private static Connection con = Conexion.getInstance().getConection();
@@ -154,74 +159,57 @@ public class ControllerUsuario {
 	
 	
 	public static Usuario BuscarUsuario(int id) {
-		Usuario nuevo = null;
-		
-		try {			
-			PreparedStatement statement = (PreparedStatement) 
-					con.prepareStatement("SELECT * FROM `persona` WHERE id= ? ");
-			statement.setInt(1, id); 
-			ResultSet resultSet = statement.executeQuery();
-			
-			String rol = resultSet.getString("rol");
-			
-			 LinkedList<String> generos = new LinkedList<>();
-	            PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("SELECT * FROM `interes_literario` WHERE usuario_id =?" );
-	            statement2.setInt(1, id);
-	            ResultSet resultSet2 = statement2.executeQuery();
-	            while (resultSet2.next()) {
-	            	String genero = null;
-					genero = resultSet2.getString("tipo_interes");
-					if (genero != null) {
-		                generos.add(genero);
-		            }
-				}
-			switch (rol) {
-			case "admin":
-				if (resultSet.next()) {
-					nuevo = new Administrador(
-							resultSet.getInt("id"),
-							resultSet.getString("nombre"),
-							resultSet.getString("apellido"),
-							resultSet.getString("mail"),
-							resultSet.getString("password"),
-							resultSet.getString("rol"),
-							resultSet.getString("estado_cuenta")
-							);
-				}
-				break;
-			case "autor":
-				if (resultSet.next()) {
-					nuevo = new Autor(
-							resultSet.getInt("id"),
-							resultSet.getString("nombre"),
-							resultSet.getString("apellido"),
-							resultSet.getString("mail"),
-							resultSet.getString("password"),
-							resultSet.getString("rol"),
-							resultSet.getString("estado_cuenta")
-							);
-				}
-				break;
-			case "editor":
-				if (resultSet.next()) {
-					nuevo = new Editor(
-							resultSet.getInt("id"),
-							resultSet.getString("nombre"),
-							resultSet.getString("apellido"),
-							resultSet.getString("mail"),
-							resultSet.getString("password"),
-							resultSet.getString("rol"),
-							resultSet.getString("estado_cuenta")
-							);
-				}
-				break;
-			}
-            
-			
-		
-		} catch (Exception e) {
-			System.out.println("No se agregó");		
-		}
-		return nuevo;
-	}	
+	    Usuario nuevo = null;
+	    
+	    try {            
+	        PreparedStatement statement = (PreparedStatement) con.prepareStatement("SELECT * FROM `usuario` WHERE id= ?");
+	        statement.setLong(1, id); 
+	        ResultSet resultSet = statement.executeQuery();
+	        
+	        // Verifica si hay un resultado antes de intentar leer datos
+	        if (resultSet.next()) {
+	            String rol = resultSet.getString("rol");
+	            
+	            switch (rol) {
+	                case "admin":
+	                    nuevo = new Administrador(
+	                        resultSet.getInt("id"),
+	                        resultSet.getString("nombre"),
+	                        resultSet.getString("apellido"),
+	                        resultSet.getString("mail"),
+	                        resultSet.getString("password"),
+	                        rol,
+	                        resultSet.getString("estado_cuenta")
+	                    );
+	                    break;
+	                case "autor":
+	                    nuevo = new Autor(
+	                        resultSet.getInt("id"),
+	                        resultSet.getString("nombre"),
+	                        resultSet.getString("apellido"),
+	                        resultSet.getString("mail"),
+	                        resultSet.getString("password"),
+	                        rol,
+	                        resultSet.getString("estado_cuenta")
+	                    );
+	                    break;
+	                case "editor":
+	                    nuevo = new Editor(
+	                        resultSet.getInt("id"),
+	                        resultSet.getString("nombre"),
+	                        resultSet.getString("apellido"),
+	                        resultSet.getString("mail"),
+	                        resultSet.getString("password"),
+	                        rol,
+	                        resultSet.getString("estado_cuenta")
+	                    );
+	                    break;
+	            }
+	        }
+	        
+	    } catch (Exception e) {
+	        System.out.println("No se pudo encontrar el usuario. Error: " + e.getMessage());
+	    }
+	    return nuevo;
+	}
 }

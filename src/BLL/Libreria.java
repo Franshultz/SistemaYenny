@@ -1,4 +1,4 @@
-package ManuscriptFlow;
+package BLL;
 
 public class Libreria {
 

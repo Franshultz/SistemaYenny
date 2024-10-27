@@ -1,4 +1,4 @@
-package ManuscriptFlow;
+package DLL;
 
 public interface RegistrarAccion {
 
