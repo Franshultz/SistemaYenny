@@ -47,21 +47,8 @@ public class ControllerUsuario {
 	        ResultSet resultSet = statement.executeQuery();
 
 	        while (resultSet.next()) {
-	        	int id = resultSet.getInt("id");
 	            String rol = resultSet.getString("rol");
 	            Usuario usuario = null;
-	            
-	            LinkedList<String> generos = new LinkedList<>();
-	            PreparedStatement statement2 = (PreparedStatement) con.prepareStatement("SELECT * FROM `interes_literario` WHERE usuario_id =?" );
-	            statement2.setInt(1, id);
-	            ResultSet resultSet2 = statement2.executeQuery();
-	            while (resultSet2.next()) {
-	            	String genero = null;
-					genero = resultSet2.getString("tipo_interes");
-					if (genero != null) {
-		                generos.add(genero);
-		            }
-				}
 
 	            switch (rol) {
 	                case "admin":
@@ -115,6 +102,45 @@ public class ControllerUsuario {
 	    }
 
 	    return usuarios;
+	}
+	
+	
+	public static LinkedList<Usuario> MostrarEditores() {
+	    LinkedList<Usuario> editores = new LinkedList<>();
+
+	    try {
+	        if (con == null || con.isClosed()) {
+	            System.out.println("La conexión a la base de datos no está establecida.");
+	            return editores; 
+	        }
+
+	        PreparedStatement statement = (PreparedStatement) con.prepareStatement("SELECT * FROM `usuario` WHERE rol = 'editor';");
+	        ResultSet resultSet = statement.executeQuery();
+
+	        while (resultSet.next()) {
+	           Usuario editor = new Editor(
+	                        resultSet.getInt("id"),
+	                        resultSet.getString("nombre"),
+	                        resultSet.getString("apellido"),
+	                        resultSet.getString("mail"),
+	                        resultSet.getString("password"),
+	                        resultSet.getString("rol"),
+	                        resultSet.getString("estado_cuenta")
+	                    	);
+
+	            if (editores != null) {
+	            	editores.add(editor);
+	            }
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("Error al ejecutar la consulta: " + e.getMessage());
+	        e.printStackTrace();
+	    } catch (Exception e) {
+	        System.out.println("Ocurrió un error: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+
+	    return editores;
 	}
 	
 	

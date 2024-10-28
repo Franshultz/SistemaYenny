@@ -5,29 +5,30 @@ import java.time.LocalDate;
 public class Entrega {
 
     private int id;
-    private int autor;
-    private double versionManuscrito;
+    private Autor autor;
     private String contenido;
     private String estado;
     private String feedback;
     private LocalDate fechaEntrega;
+    private Libro libro;
 
-    public Entrega(int id, double versionManuscrito, String contenido, String estado, String feedback, LocalDate fechaEntrega, String autor) {
+    public Entrega(int id, Autor autor, String contenido, String estado, String feedback, LocalDate fechaEntrega, Libro libro) {
     	this.id = id;
-    	this.versionManuscrito = versionManuscrito;
+    	this.autor = autor;
     	this.contenido = contenido;
     	this.estado = estado;
     	this.feedback = feedback;
     	this.fechaEntrega = fechaEntrega;
+    	this.libro = libro;
     }
     
-    public Entrega(int autor, String contenido) {
+    public Entrega(Autor autor, String contenido, Libro libro) {
     	this.autor = autor;
-        this.versionManuscrito = 0.0;
         this.contenido = contenido;
-        this.estado = "En revision";
+        this.estado = "en revision";
         this.feedback = "No hay feedback para esta entrega todavia";
         this.fechaEntrega = LocalDate.now();
+        this.libro = libro;
     }
 
     
@@ -40,20 +41,12 @@ public class Entrega {
 		this.id = id;
 	}
 
-	public int getAutor() {
+	public Autor getAutor() {
 		return autor;
 	}
 
-	public void setAutor(int autor) {
+	public void setAutor(Autor autor) {
 		this.autor = autor;
-	}
-
-	public double getVersionManuscrito() {
-		return versionManuscrito;
-	}
-
-	public void setVersionManuscrito(double versionManuscrito) {
-		this.versionManuscrito = versionManuscrito;
 	}
 
 	public String getContenido() {
@@ -89,10 +82,20 @@ public class Entrega {
 		this.fechaEntrega = fechaEntrega;
 	}
 
+	public Libro getLibro() {
+		return libro;
+	}
+
+	public void setLibro(Libro libro) {
+		this.libro = libro;
+	}
+
 	@Override
 	public String toString() {
-		return "Entrega [id=" + id + ", versionManuscrito=" + versionManuscrito + ", contenido=" + contenido
-				+ ", estado=" + estado + ", feedback=" + feedback + ", fechaEntrega=" + fechaEntrega + "]";
+		return "Entrega [id=" + id + ", autor=" + autor + ", contenido=" + contenido + ", estado=" + estado
+				+ ", feedback=" + feedback + ", fechaEntrega=" + fechaEntrega + ", libro=" + libro + "]";
 	}
+
+	
 
 }

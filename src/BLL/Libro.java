@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Libro {
 
+	private int id;
 	private String titulo;
 	private Autor autor;
 	private String isbn;
@@ -16,8 +17,9 @@ public class Libro {
 	private int stockDisponible;
 	private Editor editor;
 	
-	public Libro(String titulo, Autor autor, String isbn, String genero, double precio, String formato,
+	public Libro(int id, String titulo, Autor autor, String isbn, String genero, double precio, String formato,
 			String estadoLibro, LocalDate fechaLanzamiento, int stockDisponible, Editor editor) {
+		this.id = id;
 		this.titulo = titulo;
 		this.autor = autor;
 		this.isbn = isbn;
@@ -34,9 +36,26 @@ public class Libro {
 	public Libro(String titulo, Autor autor, String genero, Editor editor) {
 		this.titulo = titulo;
 		this.autor = autor;
+		this.isbn = "";
 		this.genero = genero;
+		this.precio = 0.0;
+		this.formato = "";
 		this.estadoLibro = "En proceso";
+		this.fechaLanzamiento = null;
+		this.numeroVentas = 0;
+		this.stockDisponible = 0;
 		this.editor = editor;
+	}
+
+	
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getTitulo() {
