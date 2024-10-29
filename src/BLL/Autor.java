@@ -157,10 +157,10 @@ public class Autor extends Usuario implements Validaciones{
 	        "Géneros Literarios", JOptionPane.QUESTION_MESSAGE, 
 	        null, generosLiterarios, generosLiterarios[0]);
 
-	    // Validar que el usuario seleccionó un género
+	    
 	    if (generoSeleccionado == null) {
 	        JOptionPane.showMessageDialog(null, "No se seleccionó ningún género.");
-	        return false; // Finalizar si no se seleccionó un género
+	        return false; 
 	    }
 
 	    LinkedList<Usuario> editores = ControllerUsuario.MostrarEditores();
@@ -179,7 +179,7 @@ public class Autor extends Usuario implements Validaciones{
 	        "Editores", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, 
 	        null, opcionesEditores, opcionesEditores[0]);
 
-	    // Validar la selección del editor
+	   
 	    if (seleccion != JOptionPane.CLOSED_OPTION && seleccion >= 0) {
 	        String seleccionEditor = opcionesEditores[seleccion];
 	        
@@ -195,13 +195,13 @@ public class Autor extends Usuario implements Validaciones{
 	            }
 	        }
 
-	        // Verificar que se seleccionó un editor
+	      
 	        if (editorElegido == null) {
 	            JOptionPane.showMessageDialog(null, "No se seleccionó ningún editor.");
-	            return false; // Finalizar si no se seleccionó un editor
+	            return false; 
 	        }
 
-	        // Aquí debes asegurarte de que `this` sea una instancia correcta de `Autor`
+	   
 	        Libro libro = new Libro(titulo, this, generoSeleccionado, (Editor) editorElegido);
 	        return ControllerLibro.AgregarLibro(libro);
 	    } else {
@@ -260,6 +260,7 @@ public class Autor extends Usuario implements Validaciones{
                 JOptionPane.QUESTION_MESSAGE);
 
         if (respuesta == JOptionPane.YES_OPTION) {
+        	JOptionPane.showMessageDialog(null, "Proyecto eliminado correctamente");
             return ControllerLibro.EliminarLibro(libro.getId());
         }
 		return false;

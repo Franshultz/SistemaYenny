@@ -45,6 +45,27 @@ public class ControllerEntrega {
 		}
 		return false;			
 	}
+	public void actualizarEntrega(int id, Entrega entrega) {
+        try {
+            PreparedStatement statement = (PreparedStatement) con.prepareStatement(
+                "UPDATE `entrega` SET `contenido`=?, `estado`=?, `feedback`=?, `fechaEntrega`=?, `usuario_id`=?, `libro_id`=? WHERE `id`=?"
+            );
+            statement.setString(1, entrega.getContenido());
+            statement.setString(2, entrega.getEstado());
+            statement.setString(3, entrega.getFeedback());
+            statement.setDate(4, Date.valueOf(entrega.getFechaEntrega()));
+            statement.setInt(5, entrega.getAutor().getId());
+            statement.setInt(6, entrega.getLibro().getId());
+            statement.setInt(7, id);
+
+            int filas = statement.executeUpdate();
+            if (filas > 0) {
+                JOptionPane.showMessageDialog(null, "Entrega actualizada con éxito");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error, no se pudo actualizar entrega: " + e.getMessage());
+        }
+    }
 	
 	
 	public static boolean AgregarRevision(Entrega entrega, String contenido) {

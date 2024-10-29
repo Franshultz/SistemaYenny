@@ -15,6 +15,8 @@ public interface Validaciones {
 	
 
 	default Libro ValidacionLibro(){
+		int id = 0;
+		id = id + 1;
 		String titulo = JOptionPane.showInputDialog("Ingrese un titulo.");	
 		while (titulo.isEmpty()) {
 			titulo = JOptionPane.showInputDialog("El titulo no puede estar vacio. \nIngrese un titulo valido");			
@@ -181,8 +183,9 @@ public interface Validaciones {
 				editor = (Editor) usuario;
 			}
 		}
-			
-		 return new Libro(titulo, autor, isbn, genero, precio, formato, estado, fechaLanzamiento, stock, editor);
+		
+		
+		 return new Libro(id, titulo, autor, isbn, genero, precio, formato, estado, fechaLanzamiento, stock, editor);
 	}
 
 	
