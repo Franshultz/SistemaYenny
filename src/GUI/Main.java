@@ -183,7 +183,7 @@ public class Main {
 								default:
 									break;
 								}
-				            case 2:
+				            case 1:
 				            	String[] opcionesUsuariosAdmin = {
 				            			"Agregar Usuario", 
 						                "Mostrar Usuarios", 
@@ -193,7 +193,13 @@ public class Main {
 				            	int CRUDusuarios = JOptionPane.showOptionDialog(null, "Seleccione una opción", "Administración", 0, 0, null, opcionesUsuariosAdmin, opcionesUsuariosAdmin);
 				            	switch (CRUDusuarios) {
 								case 0:
-									  Usuario nuevoUsuario = null;
+									String nombreUsuario= JOptionPane.showInputDialog("Ingresar nombre de usuario");
+									String apellidoUsuario= JOptionPane.showInputDialog("Ingresar apellido de usuario");
+									String emailUsuario= JOptionPane.showInputDialog("Ingresar email de usuario");
+									String contraUsuario= JOptionPane.showInputDialog("Ingresar contraseña");
+									String estadoUsuario= JOptionPane.showInputDialog("Ingresar estado de cuenta (activo / inactivo");
+									
+									  Autor nuevoUsuario = new Autor(nombreUsuario, apellidoUsuario, emailUsuario, contraUsuario, estadoUsuario);
 									ControllerUsuario.AgregarUsuario(nuevoUsuario);
 								
 									break;
@@ -215,19 +221,20 @@ public class Main {
 					                int idEliminarUsuario = Integer.parseInt(idEliminarUsuarioStr);
 					                ControllerUsuario.EliminarUsuario(idEliminarUsuario);
 					                break;
+								case 4: 
+				                    finSesion3 = true;
+				                    break;
+   
 								default:
 									break;
 								}
-				            	
-				            	break;
+				        
 
-				                case 3: 
-				                    finSesion3 = true;
-				                    break;
-
+				                
 				                default:
 				                    break;
 				            }
+				            
 				        } while (!finSesion3);
 				        break;                        
 					}

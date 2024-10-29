@@ -53,41 +53,6 @@ public class Administrador extends Usuario implements RegistrarAccion, Validacio
 			break;
 		}		
 	}
-	
-	
-	public void AdministrarLibros() {
-	    String[] CRUD = {"Agregar", "Modificar", "Eliminar", "Salir"};
-	    int seleccionCRUD = JOptionPane.showOptionDialog(null, "Seleccione una opción", "Administrar Libros",
-	            JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, CRUD, CRUD[0]);
-
-	    switch (seleccionCRUD) {
-	        case 0: 
-	            // Agregar libro
-	            Libro libro = ValidacionLibro();
-	            AgregarLibro(libro);
-	            break;
-
-	        case 1: 
-	            // Modificar libro
-	            int libroIdModificar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del libro a modificar"));
-	            modificarLibro(libroIdModificar);
-	            break;
-
-	        case 2: 
-	            // Eliminar libro
-	            int libroIdEliminar = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del libro a eliminar"));
-	            eliminarLibro(libroIdEliminar);
-	            break;
-
-	        case 3: 
-	            // Salir
-	            break;
-
-	        default:
-	            JOptionPane.showMessageDialog(null, "ERROR");
-	            break;
-	    }
-	}
 
 
 	
@@ -97,4 +62,4 @@ public class Administrador extends Usuario implements RegistrarAccion, Validacio
 
 	
 
-	}
+	
