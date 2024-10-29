@@ -1,15 +1,23 @@
 package BLL;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+
+import DLL.Conexion;
 import DLL.RegistrarAccion;
 import DLL.Validaciones;
 
 public class Editor extends Usuario implements RegistrarAccion, Validaciones{
-
+	private static Connection con = Conexion.getInstance().getConection();
 	private int manuscritosAsignados;
 	private int cantidadManuscritosRevisados;
 	private double reputacion;
@@ -65,18 +73,71 @@ public class Editor extends Usuario implements RegistrarAccion, Validaciones{
 	
 	public void revisarEntrega() {
 		
-        String manuscrito = JOptionPane.showInputDialog("Ingrese el título del manuscrito que desea revisar");
-        //Falta info
-        JOptionPane.showMessageDialog(null, "El manuscrito '" + manuscrito + "' ha sido revisado.");
-        cantidadManuscritosRevisados++;
-        historialRevision.add(manuscrito + " revisado el " + LocalDate.now());
+        int entregaId = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la entrega que desea revisar"));
+        String nuevoEstado = JOptionPane.showInputDialog("Ingrese el nuevo estado (aprobada, rechazada, en revision, pendiente de correcciones)");
+
+        try {
+        	PreparedStatement statement = (PreparedStatement) con.prepareStatement ("UPDATE entrega SET estado = ? WHERE id = ?");
+            statement.setString(1, nuevoEstado);
+            statement.setInt(2, entregaId);
+
+            int filas = statement.executeUpdate();
+            if (filas > 0) {
+                JOptionPane.showMessageDialog(null, "La entrega ha sido actualizada a '" + nuevoEstado + "'.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la entrega con ID " + entregaId);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar el estado de la entrega: " + e.getMessage());
+        }
     }
 
-    // Falta info
+    
     public void enviarFeedback() {
+    	
+        int entregaId = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la entrega para la cual desea enviar feedback"));
         String feedback = JOptionPane.showInputDialog("Ingresar Comentarios");
-         JOptionPane.showMessageDialog(null, "El comentario ha sido enviado.");
+
+        try {
+            PreparedStatement statement = (PreparedStatement) con.prepareStatement("UPDATE entrega SET feedback = ? WHERE id = ?");
+            statement.setString(1, feedback);
+            statement.setInt(2, entregaId);
+
+            int filas = statement.executeUpdate();
+            if (filas > 0) {
+                JOptionPane.showMessageDialog(null, "El feedback ha sido enviado.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la entrega con ID " + entregaId);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al enviar feedback: " + e.getMessage());
+        }
+    }
         
+    public List<Libro> getLibros() {
+        List<Libro> libros = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = (PreparedStatement) con.prepareStatement("SELECT id, titulo, estadoLibro FROM libro");
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String titulo = rs.getString("titulo");
+                String estadoLibro = rs.getString("estadoLibro");
+
+               
+                Libro libro = new Libro(id, titulo, null, estadoLibro, estadoLibro, reputacion, estadoLibro, estadoLibro, null, id, null);
+                libros.add(libro);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener los libros: " + e.getMessage());
+        }
+
+        return libros;
     }
 
 	@Override

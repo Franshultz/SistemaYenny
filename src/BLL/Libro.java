@@ -7,6 +7,8 @@ public class Libro {
 	private int id;
 	private String titulo;
 	private Autor autor;
+	 private int autor_id;
+	    private int editor_id;
 	private String isbn;
 	private String genero;
 	private double precio;	
@@ -22,6 +24,7 @@ public class Libro {
 		this.id = id;
 		this.titulo = titulo;
 		this.autor = autor;
+	
 		this.isbn = isbn;
 		this.genero = genero;
 		this.precio = precio;
@@ -33,6 +36,22 @@ public class Libro {
 		this.editor = editor;
 	}
 	
+	public int getAutor_id() {
+		return autor_id;
+	}
+
+	public void setAutor_id(int autor_id) {
+		this.autor_id = autor_id;
+	}
+
+	public int getEditor_id() {
+		return editor_id;
+	}
+
+	public void setEditor_id(int editor_id) {
+		this.editor_id = editor_id;
+	}
+
 	public Libro(String titulo, Autor autor, String genero, Editor editor) {
 		this.titulo = titulo;
 		this.autor = autor;

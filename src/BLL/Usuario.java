@@ -13,7 +13,7 @@ import DLL.Validaciones;
 	
 	
 	public abstract class Usuario implements Validaciones{
-		private static Connection connect = Conexion.getInstance().getConection();
+		private static Connection con = Conexion.getInstance().getConection();
 	
 		private int id;
 		private String nombre;
