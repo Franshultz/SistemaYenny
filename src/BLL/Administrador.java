@@ -18,10 +18,13 @@ public class Administrador extends Usuario implements RegistrarAccion, Validacio
 	private static Connection con = Conexion.getInstance().getConection();
 	    private LinkedList<String> registroAcciones;
 	
-	    public Administrador(int id, String nombre, String apellido, String mail, String password, String rol, String estadoCuenta) {
-	        super(id, nombre, apellido, mail, password, rol, estadoCuenta);
+	    public Administrador(int id, String nombre, String apellido, String email, String contraseña, String rol, String estadoCuenta) {
+	        super(id, nombre, apellido, email, contraseña, rol, estadoCuenta);
 	        this.registroAcciones = new LinkedList<>();
+	        
 	    }
+	    
+	    
 
 
 	public LinkedList<String> getRegistroAcciones() {

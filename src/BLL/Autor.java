@@ -26,6 +26,7 @@ public class Autor extends Usuario implements Validaciones{
 	
 	
 
+    
     public Autor(int id, String nombre, String apellido, String email, String contraseña, String rol, String estadoCuenta) {
         super(id, nombre, apellido, email, contraseña, rol, estadoCuenta);
         this.listaLibrosPublicados = new LinkedList<Libro>();
