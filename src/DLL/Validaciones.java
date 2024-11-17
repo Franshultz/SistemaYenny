@@ -10,59 +10,55 @@ import BLL.Autor;
 import BLL.Editor;
 import BLL.Libro;
 import BLL.Usuario;
+import GUI.LoginScreen;
+import GUI.SignUpScreen;
+
 
 public interface Validaciones {	
 	
 	static String ValidacionNombre(String nombre) {
-        while (true) {
             try {
                 if (nombre == null || nombre.isEmpty()) {
                     throw new IllegalArgumentException("El nombre no puede estar vacío.");
+                } else {	
+                	return nombre;
                 }
-                break; 
 
             } catch (IllegalArgumentException e) {
                 JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-                nombre = JOptionPane.showInputDialog("Ingrese un nombre:");
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado");
-                nombre = JOptionPane.showInputDialog("Ingrese un nombre:");
             }
-        }
-
-        return nombre;
+            return null;
     }
 	
 	
-	static String ValidacionApellido() {
-	    String apellido;
-	    while (true) {
+	static String ValidacionApellido(String apellido) {
 	        try {
-	            apellido = JOptionPane.showInputDialog("Ingrese un apellido:");
-
+	        	
 	            if (apellido == null) {
 	                throw new IllegalArgumentException("\nDebes agregar un apellido.");
 	            } else if (apellido.isEmpty()) {
 	                throw new IllegalArgumentException("\nEl apellido no puede estar vacío.");
-	            }
-
-	            break;
+	            } else {
+	            	return apellido;	            	
+	            }	       
 
 	        } catch (IllegalArgumentException e) {
 	            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+	            return null;
 	        } catch (Exception e) {
 	            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado");
+	            return null;
 	        }
-	    }
-
-	    return apellido;
+	        
 	}
 	
 	
 	static String ValidacionEmail(String email) {
-	    while (true) {
 	        try {
 	            
+	        	
 	            if (email == null) {
 	                throw new IllegalArgumentException("\nDebes agregar un email.");
 	            } else if (email.isEmpty()) {
@@ -71,29 +67,25 @@ public interface Validaciones {
 	                throw new IllegalArgumentException("\nEl email debe contener '@'.");
 	            } else if (!email.contains(".")) {
 	                throw new IllegalArgumentException("\nEl email debe contener un dominio (ej. ejemplo.com).");
+	            } else {
+	            	return email;
 	            }
-
-	            break;
+	            
 
 	        } catch (IllegalArgumentException e) {
 	            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-	            email = JOptionPane.showInputDialog("Ingrese un email:");
+	            return null;
 
 	        } catch (Exception e) {
 	            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado");
-	            email = JOptionPane.showInputDialog("Ingrese un email:");
+	            return null;
 	        }
-	    }
 
-	    return email;
 	}
 	
 	
-	static String ValidacionPassword() {
-	    String password;
-	    while (true) {
+	static String ValidacionPassword(String password) {
 	        try {
-	            password = JOptionPane.showInputDialog("Ingrese una contraseña:");
 
 	            if (password == null) {
 	                throw new IllegalArgumentException("Debes agregar una contraseña.");
@@ -119,18 +111,19 @@ public interface Validaciones {
 	                throw new IllegalArgumentException("La contraseña debe contener al menos una mayúscula.");
 	            } else if (contDigit < 3) {
 	                throw new IllegalArgumentException("La contraseña debe contener al menos tres dígitos.");
+	            } else {
+	            	return password;
 	            }
 
-	            break; 
 
 	        } catch (IllegalArgumentException e) {
 	            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+	            return null;
 	        } catch (Exception e) {
 	            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado");
+	            return null;
 	        }
-	    }
 
-	    return password;
 	}
 	
 	
