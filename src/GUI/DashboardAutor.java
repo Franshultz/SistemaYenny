@@ -33,7 +33,9 @@ public class DashboardAutor extends JFrame {
 		JButton buttonVerProyecto = new JButton("Ver Proyectos");
 		buttonVerProyecto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					
+					DisplayMisLibros misLibros = new DisplayMisLibros();
+					misLibros.setVisible(true);
+					dispose();
 			}
 		});
 		buttonVerProyecto.setBounds(58, 85, 138, 38);
