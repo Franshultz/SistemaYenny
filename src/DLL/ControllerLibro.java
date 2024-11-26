@@ -183,8 +183,9 @@ public class ControllerLibro {
 	
 	public static boolean EliminarLibro(int id) {
 		try {	
+			JOptionPane.showMessageDialog(null, id);
 			PreparedStatement statement = (PreparedStatement) 
-					con.prepareStatement("DELETE FROM `libro` WHERE id= ? ");
+					con.prepareStatement("DELETE FROM `libro` WHERE id=?");
 			statement.setInt(1, id);
 			int fila = statement.executeUpdate();
 			if (fila>0) {
