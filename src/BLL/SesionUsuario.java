@@ -24,5 +24,6 @@ public class SesionUsuario {
 
  public void cerrarSesion() {
      this.usuarioLogueado = null;
+     instancia = null;
  }
 }
