@@ -21,6 +21,15 @@ public class ControllerLibro {
 	
 	public static boolean AgregarLibro(Libro libro) {
 		try {			
+			 Autor autor = libro.getAutor();
+			    if (autor != null) {
+			        int autorId = autor.getId();
+			        // Resto del código para agregar el libro
+			    } else {
+			        // Manejar el caso en que el autor es null
+			        System.out.println("El autor es null");
+			    }
+			
 			PreparedStatement statement = (PreparedStatement) con.prepareStatement
 			("INSERT INTO `libro`(`titulo`, `autor_id`, `genero`, `precio`, `formato` , `estadoLibro`, `fechaLanzamiento`, `numeroVentas`, `stockDisponible`, `editor_id`) VALUES (?,?,?,?,?,?,?,?,?,?)");
 			statement.setString(1, libro.getTitulo());

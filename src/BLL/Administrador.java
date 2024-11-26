@@ -1,21 +1,16 @@
 package BLL;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-
-import DLL.Conexion;
 import DLL.RegistrarAccion;
 import DLL.Validaciones;
 
 
 public class Administrador extends Usuario implements RegistrarAccion, Validaciones{
-	private static Connection con = Conexion.getInstance().getConection();
+
 	    private LinkedList<String> registroAcciones;
 	
 	    public Administrador(int id, String nombre, String apellido, String mail, String password, String rol, String estadoCuenta) {
@@ -53,13 +48,29 @@ public class Administrador extends Usuario implements RegistrarAccion, Validacio
 			break;
 		}		
 	}
-
-
 	
-		
+	
+	public void AdministrarLibros() {
+			
+	        String[] CRUD = {"Agregar", "Modificar", "Eliminar", "Salir"};
+	        int seleccionCRUD = JOptionPane.showOptionDialog(null, "Seleccione una opción", "Administrar Libros",
+	                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, CRUD, CRUD[0]);;
+	       
+	        
+	        switch (seleccionCRUD) {
+	            case 0: 
+	                	                
+	                break;
+	            case 1: 
+	                JOptionPane.showMessageDialog(null, "Modificar Libro");
+	            case 2: 
+	                JOptionPane.showMessageDialog(null, "Eliminar Libro");
+	            case 3: 
+	                break;
+	
+	            default:
+	                JOptionPane.showMessageDialog(null, "ERROR");
+	                break;
+	        }
+		}
 	}
-
-
-	
-
-	

@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import BLL.Autor;
 import BLL.Entrega;
 import BLL.Libro;
+import BLL.SesionUsuario;
 import BLL.Usuario;
 import DLL.ControllerEntrega;
 import DLL.ControllerLibro;
@@ -17,18 +18,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-        DisplayLogin displayLogin = new DisplayLogin(); 
+        OverView displayLogin = new OverView(); 
         displayLogin.setVisible(true);
         
-        // Esperar a que el login se complete
-        while (SesionUsuario.getInstancia().getUsuarioLogueado() == null) {
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {
-            	System.out.println("se ha producido un error");// Espera breve para evitar el ciclo rápido     
-            }
-        }
-
         Usuario usuario = SesionUsuario.getInstancia().getUsuarioLogueado();
 	    if (usuario != null) {
 	        JOptionPane.showMessageDialog(null, "Usuario logueado con éxito. ID: " + usuario.getId());
