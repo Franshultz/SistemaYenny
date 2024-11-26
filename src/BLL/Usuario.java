@@ -13,7 +13,7 @@ import DLL.Validaciones;
 	
 	
 	public abstract class Usuario implements Validaciones{
-		private static Connection con = Conexion.getInstance().getConection();
+		private static Connection connect = Conexion.getInstance().getConection();
 	
 		private int id;
 		private String nombre;
@@ -132,14 +132,15 @@ import DLL.Validaciones;
 		}
 		
 		
-		public static void SingUp() {
-			String nombre = Validaciones.ValidacionNombre();
-			String apellido = Validaciones.ValidacionApellido();						
-			String emailRegistro;
+		public static boolean SingUp(String nombre, String apellido, String email, String password) {
+			String nombreRegistro = Validaciones.ValidacionNombre(nombre);
+			String apellidoRegistro = Validaciones.ValidacionApellido(apellido);														
+			
+			String emailRegistro;			
 			boolean flag;
 			LinkedList<Usuario> usuarios = ControllerUsuario.MostrarUsuarios();		    
 		    do {
-		        emailRegistro = Validaciones.ValidacionEmail();
+		        emailRegistro = Validaciones.ValidacionEmail(email);
 		        flag = false; 
 		        
 		        for (Usuario persona : usuarios) {
@@ -149,16 +150,21 @@ import DLL.Validaciones;
 		                break;
 		            }
 		        }
-		    } while (flag); 
-
-		    String contraseñaRegistro = Validaciones.ValidacionPassword();
-		    ControllerUsuario.AgregarUsuario(new Autor(nombre, apellido, emailRegistro, contraseñaRegistro, "activo"));
+		    } while (flag);
+		    
+		    String contraseñaRegistro = Validaciones.ValidacionPassword(password);
+		    if (nombreRegistro == null || apellidoRegistro == null || emailRegistro == null || contraseñaRegistro == null) {
+				return false;
+			} else {
+				ControllerUsuario.AgregarUsuario(new Autor(nombreRegistro, apellidoRegistro, emailRegistro, contraseñaRegistro, "activo"));
+				return true;
+			}
 		}
 
 		
-		public static Usuario LogIn() {
-			String email = Validaciones.ValidacionEmail();						
-			String contraseña = JOptionPane.showInputDialog("Ingrese contraseña");
+		
+		public static Usuario LogIn(String email, String contraseña) {
+			email = Validaciones.ValidacionEmail(email);		
 
 			LinkedList<Usuario> usuarios = ControllerUsuario.MostrarUsuarios();
 			for (Usuario persona : usuarios) {

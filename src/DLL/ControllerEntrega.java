@@ -104,7 +104,7 @@ public class ControllerEntrega {
 	        
 	        ResultSet resultSet = statement.executeQuery();
 	        
-	        if (resultSet.next()) {  // Verificar si hay resultados antes de acceder
+	        if (resultSet.next()) {  
 	            Autor autor = (Autor) ControllerUsuario.BuscarUsuario(resultSet.getInt("usuario_id"));
 	            Libro libro = ControllerLibro.BuscarLibro(resultSet.getInt("libro_id"));
 	            
@@ -117,10 +117,12 @@ public class ControllerEntrega {
 	                resultSet.getDate("fechaEntrega").toLocalDate(),
 	                libro
 	            );
+	        } else {
+	            System.out.println("No se encontró ninguna entrega para el libro y autor especificados.");
 	        }
 	        
 	    } catch (Exception e) {
-	        System.out.println("No se pudo encontrar el usuario. Error: " + e.getMessage());
+	        System.out.println("No se pudo encontrar la entrega. Error: " + e.getMessage());
 	        e.printStackTrace();
 	    }
 	    
