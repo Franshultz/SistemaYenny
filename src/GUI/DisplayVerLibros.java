@@ -96,7 +96,16 @@ public class DisplayVerLibros extends JFrame {
         buttonVolver.setBounds(30, 27, 41, 36);
         contentPane.add(buttonVolver);
 
+        buttonVolver.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+                DashboardEditor dashboardEditor = new DashboardEditor();
+                dashboardEditor.setVisible(true);
+                
+                
+                dispose();
             }
-       
+        });
     }
+}
 

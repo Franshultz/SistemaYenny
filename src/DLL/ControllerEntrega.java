@@ -45,7 +45,7 @@ public class ControllerEntrega {
 		}
 		return false;			
 	}
-	public void actualizarEntrega(int id, Entrega entrega) {
+	public static Entrega actualizarEntrega(int id, Entrega entrega) {
         try {
             PreparedStatement statement = (PreparedStatement) con.prepareStatement(
                 "UPDATE `entrega` SET `contenido`=?, `estado`=?, `feedback`=?, `fechaEntrega`=?, `usuario_id`=?, `libro_id`=? WHERE `id`=?"
@@ -65,6 +65,7 @@ public class ControllerEntrega {
         } catch (SQLException e) {
             System.out.println("Error, no se pudo actualizar entrega: " + e.getMessage());
         }
+		return entrega;
     }
 	
 	

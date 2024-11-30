@@ -28,9 +28,6 @@ public class DisplayEnviarFeedback extends JFrame {
     private JPanel contentPane;
     private JTable tablaEntregas;
 
-    /**
-     * Launch the application.
-     */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -44,9 +41,6 @@ public class DisplayEnviarFeedback extends JFrame {
         });
     }
 
-    /**
-     * Create the frame.
-     */
     public DisplayEnviarFeedback() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 600);
@@ -76,21 +70,13 @@ public class DisplayEnviarFeedback extends JFrame {
         btnEnviarFeedback.setBounds(300, 450, 200, 40);
         contentPane.add(btnEnviarFeedback);
 
-        JButton btnVolver = new JButton("Volver");
-        btnVolver.setBounds(30, 30, 90, 30);
-        contentPane.add(btnVolver);
 
-        // Acción para volver al menú anterior
-        JButton buttonVolver = new JButton("");
-        buttonVolver.setBackground(new Color(255, 255, 255));
-        buttonVolver.setIcon(new ImageIcon(DisplayCrearProyecto.class.getResource("/img/volver-flecha.png")));
-        buttonVolver.setBounds(30, 27, 41, 36);
-        contentPane.add(buttonVolver);
+
 
             
         ;
 
-        // Acción para cargar feedback
+        
         btnEnviarFeedback.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int filaSeleccionada = tablaEntregas.getSelectedRow();
@@ -116,14 +102,14 @@ public class DisplayEnviarFeedback extends JFrame {
             }
         });
 
-        // Cargar las entregas al iniciar
+        
         cargarEntregasEnTabla();
     }
 
     private void cargarEntregasEnTabla() {
         LinkedList<Entrega> entregas = ControllerEntrega.MostrarEntregas();
         DefaultTableModel modelo = (DefaultTableModel) tablaEntregas.getModel();
-        modelo.setRowCount(0); // Limpia la tabla
+        modelo.setRowCount(0); 
 
         for (Entrega entrega : entregas) {
             modelo.addRow(new Object[] {
@@ -134,5 +120,19 @@ public class DisplayEnviarFeedback extends JFrame {
                 entrega.getFechaEntrega()
             });
         }
+        JButton buttonVolver = new JButton("");
+        buttonVolver.setBackground(new Color(255, 255, 255));
+        buttonVolver.setIcon(new ImageIcon(DisplayCrearProyecto.class.getResource("/img/volver-flecha.png")));
+        buttonVolver.setBounds(30, 27, 41, 36);
+        contentPane.add(buttonVolver);
+
+        buttonVolver.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                DashboardEditor dashboardEditor = new DashboardEditor();
+                dashboardEditor.setVisible(true);
+
+                dispose();
+            }
+        });
     }
 }

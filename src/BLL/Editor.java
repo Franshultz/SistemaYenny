@@ -97,12 +97,12 @@ public class Editor extends Usuario implements RegistrarAccion, Validaciones{
 	 public static boolean enviarFeedback(int entregaId, String feedback) {
 	        String query = "UPDATE Entregas SET feedback = ? WHERE id = ?"; 
 	        try (
-	             PreparedStatement stmt = (PreparedStatement) con.prepareStatement(query)) {
+	             PreparedStatement statement = (PreparedStatement) con.prepareStatement(query)) {
 	            
-	            stmt.setString(1, feedback);
-	            stmt.setInt(2, entregaId);
+	        	statement.setString(1, feedback);
+	        	statement.setInt(2, entregaId);
 
-	            int filasActualizadas = stmt.executeUpdate();
+	            int filasActualizadas = statement.executeUpdate();
 	            return filasActualizadas > 0; 
 	        } catch (Exception e) {
 	            e.printStackTrace();

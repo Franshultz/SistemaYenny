@@ -25,12 +25,12 @@ public class DashboardEditor extends JFrame {
 
         JLabel lblTitulo = new JLabel("Dashboard Editor");
         lblTitulo.setFont(new Font("Yu Gothic UI Semilight", Font.PLAIN, 30));
-        lblTitulo.setBounds(300, 20, 300, 50);
+        lblTitulo.setBounds(100, 20, 300, 50);
         contentPane.add(lblTitulo);
 
         JButton btnEnviarFeedback = new JButton("Enviar Feedback");
         btnEnviarFeedback.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        btnEnviarFeedback.setBounds(300, 100, 200, 40);
+        btnEnviarFeedback.setBounds(100, 100, 200, 40);
         btnEnviarFeedback.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 DisplayEnviarFeedback pantallaFeedback = new DisplayEnviarFeedback();
@@ -42,7 +42,7 @@ public class DashboardEditor extends JFrame {
 
         JButton btnRevisarEntrega = new JButton("Revisar Entrega");
         btnRevisarEntrega.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        btnRevisarEntrega.setBounds(300, 160, 200, 40);
+        btnRevisarEntrega.setBounds(100, 160, 200, 40);
         btnRevisarEntrega.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 DisplayRevisarEntrega pantallaRevisar = new DisplayRevisarEntrega();
@@ -54,7 +54,7 @@ public class DashboardEditor extends JFrame {
 
         JButton btnVerLibros = new JButton("Ver Libros");
         btnVerLibros.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        btnVerLibros.setBounds(300, 220, 200, 40);
+        btnVerLibros.setBounds(100, 220, 200, 40);
         btnVerLibros.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 DisplayVerLibros pantallaLibros = new DisplayVerLibros();
