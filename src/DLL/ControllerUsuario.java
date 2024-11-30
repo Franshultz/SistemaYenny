@@ -148,11 +148,12 @@ public class ControllerUsuario {
 		
 		try {			
 			PreparedStatement statement = (PreparedStatement) 
-					con.prepareStatement("UPDATE `persona` SET `nombre`=?,`rol`=?,`password`=? WHERE id = ?");
+					con.prepareStatement("UPDATE `usuario` SET `nombre`=?,`apellido`=?,`rol`=?,`password`=? WHERE id = ?");
 			statement.setString(1, usuario.getNombre());
-			statement.setString(2, usuario.getRol());
-			statement.setString(3, usuario.getContraseña());
-			statement.setInt(4, usuario.getId());
+			statement.setString(2, usuario.getApellido());
+			statement.setString(3, usuario.getRol());
+			statement.setString(4, usuario.getContraseña());
+			statement.setInt(5, usuario.getId());
 
 			int fila = statement.executeUpdate();
 			if (fila>0) {
@@ -170,7 +171,7 @@ public class ControllerUsuario {
 		try {
 			
 			PreparedStatement statement = (PreparedStatement) 
-					con.prepareStatement("DELETE FROM `persona` WHERE id= ? ");
+					con.prepareStatement("DELETE FROM `usuario` WHERE id= ? ");
 			statement.setInt(1, id);
 			int fila = statement.executeUpdate();
 			if (fila>0) {
@@ -192,7 +193,7 @@ public class ControllerUsuario {
 	        statement.setLong(1, id); 
 	        ResultSet resultSet = statement.executeQuery();
 	        
-	        // Verifica si hay un resultado antes de intentar leer datos
+	    
 	        if (resultSet.next()) {
 	            String rol = resultSet.getString("rol");
 	            

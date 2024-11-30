@@ -24,6 +24,7 @@ import DLL.Validaciones;
 		private String estadoCuenta;
 		private LinkedList<String> interesLiterario;
 		
+		
 		public Usuario(int id, String nombre, String apellido, String email, String contraseña, String rol, String estadoCuenta) {
 			this.id = id;
 			this.nombre = nombre;

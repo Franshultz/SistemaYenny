@@ -24,9 +24,9 @@ public class ControllerLibro {
 			 Autor autor = libro.getAutor();
 			    if (autor != null) {
 			        int autorId = autor.getId();
-			        // Resto del código para agregar el libro
+			        
 			    } else {
-			        // Manejar el caso en que el autor es null
+			        
 			        System.out.println("El autor es null");
 			    }
 			
@@ -200,4 +200,33 @@ public class ControllerLibro {
 		return false;
 
 	}
+	
+	public static boolean ActualizarLibro(Libro libro) {
+	    try {
+	        
+	        PreparedStatement statement = (PreparedStatement) con.prepareStatement(
+	            "UPDATE `libro` SET `precio` = ?, `formato` = ?, `stockDisponible` = ? WHERE `id` = ?"
+	        );
+	        
+	        
+	        statement.setDouble(1, libro.getPrecio());          
+	        statement.setString(2, libro.getFormato());         
+	        statement.setInt(3, libro.getStockDisponible());    
+	        statement.setInt(4, libro.getId());                 
+
+	        
+	        int filas = statement.executeUpdate();
+	        
+	        
+	        if (filas > 0) {
+	            JOptionPane.showMessageDialog(null, "Libro actualizado con éxito");
+	            return true;
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("Error, no se pudo actualizar el libro");
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+
 }

@@ -20,7 +20,7 @@ public class Editor extends Usuario implements RegistrarAccion, Validaciones{
 	private static Connection con = Conexion.getInstance().getConection();
 	private int manuscritosAsignados;
 	private int cantidadManuscritosRevisados;
-	private double reputacion;
+	private static double reputacion;
 	private LinkedList<String> historialRevision; 
 	
 	public Editor(int id, String nombre, String apellido, String email, String contraseña, String rol, String estadoCuenta) {
@@ -94,29 +94,23 @@ public class Editor extends Usuario implements RegistrarAccion, Validaciones{
     }
 
     
-    public void enviarFeedback() {
-    	
-        int entregaId = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la entrega para la cual desea enviar feedback"));
-        String feedback = JOptionPane.showInputDialog("Ingresar Comentarios");
+	 public static boolean enviarFeedback(int entregaId, String feedback) {
+	        String query = "UPDATE Entregas SET feedback = ? WHERE id = ?"; 
+	        try (
+	             PreparedStatement statement = (PreparedStatement) con.prepareStatement(query)) {
+	            
+	        	statement.setString(1, feedback);
+	        	statement.setInt(2, entregaId);
 
-        try {
-            PreparedStatement statement = (PreparedStatement) con.prepareStatement("UPDATE entrega SET feedback = ? WHERE id = ?");
-            statement.setString(1, feedback);
-            statement.setInt(2, entregaId);
-
-            int filas = statement.executeUpdate();
-            if (filas > 0) {
-                JOptionPane.showMessageDialog(null, "El feedback ha sido enviado.");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró la entrega con ID " + entregaId);
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error al enviar feedback: " + e.getMessage());
-        }
-    }
+	            int filasActualizadas = statement.executeUpdate();
+	            return filasActualizadas > 0; 
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return false;
+	        }
+	    }
         
-    public List<Libro> getLibros() {
+    public static List<Libro> getLibros() {
         List<Libro> libros = new ArrayList<>();
 
         try {
