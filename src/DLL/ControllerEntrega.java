@@ -139,12 +139,13 @@ public class ControllerEntrega {
 	            return entregas; 
 	        }
 	        
-	        PreparedStatement statement = (PreparedStatement) con.prepareStatement("SELECT * FROM `entrega` WHERE ");
+	        PreparedStatement statement = (PreparedStatement) con.prepareStatement("SELECT * FROM `entrega`"); 
 	        ResultSet resultSet = statement.executeQuery();
 
 	        while (resultSet.next()) {
-	        	Libro libro = ControllerLibro.BuscarLibro(resultSet.getInt("libro_id"));
-	        	Autor autor = (Autor) ControllerUsuario.BuscarUsuario(resultSet.getInt("usuario_id"));
+	            Libro libro = ControllerLibro.BuscarLibro(resultSet.getInt("libro_id"));
+	            Autor autor = (Autor) ControllerUsuario.BuscarUsuario(resultSet.getInt("usuario_id"));
+	            
 	            Entrega entrega = new Entrega(
 	                resultSet.getInt("id"),
 	                autor,

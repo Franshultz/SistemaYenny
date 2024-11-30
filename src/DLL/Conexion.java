@@ -28,7 +28,7 @@ public class Conexion {
 			return instance;	
 		}
 		
-		public Connection getConection() {
+		public static Connection getConection() {
 			return connect;
 		}
 }
